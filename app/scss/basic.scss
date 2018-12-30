@@ -1,0 +1,46 @@
+.show {
+    pointer-events: auto;
+    visibility: visible;
+    /* display: flex; */
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.shown {
+    display: inherit;
+}
+
+.fleft {
+    float: left
+}
+
+.fright {
+    float: right;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.flex {
+    display: flex;
+}
+
+*.unselectable {
+    -webkit-user-select: none;
+    user-select: none;
+}
