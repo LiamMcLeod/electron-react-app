@@ -3,12 +3,16 @@ import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
+
 import createRootReducer from '../reducers';
-import * as counterActions from '../actions/counter';
+//! Commented Out
+// import * as counterActions from '../actions/counter';
 import type { counterStateType } from '../reducers/types';
+var x;
 
 const history = createHashHistory();
 
+//! Commented Out
 const rootReducer = createRootReducer(history);
 
 const configureStore = (initialState?: counterStateType) => {
@@ -36,7 +40,8 @@ const configureStore = (initialState?: counterStateType) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
-    ...counterActions,
+    //! Commented Out
+    // ...counterActions,
     ...routerActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
@@ -54,6 +59,7 @@ const configureStore = (initialState?: counterStateType) => {
   const enhancer = composeEnhancers(...enhancers);
 
   // Create Store
+  //! Commented Out
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {

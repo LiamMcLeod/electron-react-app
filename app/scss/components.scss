@@ -4,6 +4,10 @@ nav a.navbar-brand{
 }
 nav a.nav-link {
     color: $color-accent;
+    text-transform: uppercase;
+    font-size:12px;
+    font-weight: 600;
+        line-height:  1.5rem;
 }
 
 nav .nav-tabs {
@@ -22,11 +26,53 @@ header .nav-item a:hover {
 color: #fff;
 }
 
-nav .nav-tabs {
-    padding-top:22px;
-    border-bottom: 0;
-}
 //* Main
+main .home-item {
+    display:flex;
+    height:130px;
+    box-sizing: border-box;
+    align-items: center;
+    margin: 0px;
+    background-color: rgb(41, 41, 41);
+    padding: 0px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+main #home a:hover{
+    text-decoration: none;
+}
+
+main .item-image {
+    box-sizing: border-box; 
+    width: 110px;
+    height: 110px;
+}
+
+main .item-text{
+    box-sizing: border-box;
+}
+
+main .item-text h2,
+main .item-text p,{
+    margin:0;
+}
+
+main h2.heading {
+    box-sizing: border-box;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+main p.description {
+        box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px;
+    opacity: 0.875;
+}
 
 //* Footer
 footer>a{
@@ -59,13 +105,3 @@ footer .text {
 }
 
 //* Misc
-main .home-item {
-    height:130px;
-    box-sizing: border-box;
-    align-items: center;
-    margin: 0px;
-    background-color: rgb(41, 41, 41);
-    padding: 0px;
-    border-radius: 10px;
-    border: 1px solid black;
-}

@@ -3,12 +3,12 @@ import { Switch, Route } from 'react-router';
 import routes from './constants/routes';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
+import QuickSimPage from './containers/QuickSimPage';
 
 export default () => (
   <App>
     <Switch>
-      <Route path={routes.COUNTER} component={CounterPage} />
+      <Route path={routes.QUICKSIM} component={QuickSimPage} />
       <Route path={routes.HOME} component={HomePage} />
     </Switch>
   </App>
