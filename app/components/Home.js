@@ -11,10 +11,19 @@ export default class Home extends Component<Props> {
 
   render() {
     return (
-      <div className={styles.container} data-tid="container">
-        <h2>Home</h2>
-        <Link to={routes.COUNTER}>to Counter</Link>
+      <div className={"container flex "+ styles.container + ""} data-tid="container">
+       <div class="col-6">
+          <div class="home-item">
+
+          </div>
+        </div>
+         <div class="col-6">
+          <div class="home-item">
+
+          </div>
+        </div>
       </div>
+      /* <Link to={routes.COUNTER}>to Counter</Link> */
     );
   }
 }
