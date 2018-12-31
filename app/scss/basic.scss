@@ -40,6 +40,10 @@
     display: flex;
 }
 
+.block {
+  display: block;
+}
+
 *.unselectable {
     -webkit-user-select: none;
     user-select: none;

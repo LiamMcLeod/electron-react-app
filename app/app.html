@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello Electron React!</title>
+    <title>Electron Simcraft</title>
     <script>
       (function() {
         if (!process.env.HOT) {
@@ -16,13 +16,75 @@
     </script>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg">
+     <a class="navbar-brand" href="#">Electron Simcraft </a>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Sim Top</a>
+        </li>
+        <li class="nav-item fright">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Compare</a>
+        </li>
+        <li class="nav-item fright">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Quick Sim</a>
+        </li>
+        <li class="nav-item fright">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Stat Prio</a>
+        </li>
+        <li class="nav-item fright">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Talents</a>
+        </li>
+        <li class="nav-item fright">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Other</a>
+        </li>
+      </ul>
+      <span class="navbar-text fright">
+        Profile
+      </span>
+    </nav>
     <header>
-      
+    
     </header>
     <main>
       <div id="root"></div>
     </main> 
-    <footer></footer>
+    <footer>
+      <div class="row">
+       <div class="col">
+       </div>
+        <div class="col">
+            <h4 class="heading">Etc</h4>
+            <div class="block"> 
+              <p class="text"><a href="https://medium.com/raidbots/frequently-asked-questions-2933b01a2d6e" target="_blank" rel="noopener noreferrer">FAQ</a></p>
+              <p class="text"><a href="https://medium.com/raidbots" target="_blank" rel="noopener noreferrer">Blog</a></p>
+              <p class="text"><a href="https://www.patreon.com/seriallos" target="_blank" rel="noopener noreferrer">Patreon</a></p>
+              <p class="text"><a href="https://github.com/seriallos/raidbots-issues/issues">Report a bug</a></p>
+              <p class="text"><a href="/developers">Developers</a></p>
+              <p class="text"><a href="/privacy">Privacy Policy</a></p>
+            </div>
+        </div>
+        <div class="col">
+       </div>
+        <div class="col">
+        
+        </div>
+        <div class="col">
+         <h4 class="heading">Contact</h4>
+          <div class="block">
+            <p class="text" >Twitter: <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">@placeholder</a></p>
+            <p class="text" >Discord: <a href="https://discord.gg/" target="_blank" rel="noopener noreferrer nofollow">placeholder</a></p>
+            <p class="text" >Email: <a href="mailto:liammcleod@placeholder.com">liam@placeholder.com</a></p>
+            <p class="text" >Inspired by Seriallos' Raidbots.com, Ported to React</p>
+          </div>    
+        </div>
+        <div class="col">
+       
+        </div>
+      </div>
+    </footer>
     <script>
       {
         const scripts = [];
