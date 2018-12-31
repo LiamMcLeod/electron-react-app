@@ -2,10 +2,15 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+// Libs
 @import "scss/normalize";
+@import "~bootstrap/dist/css/bootstrap";
+
+// Mine
 @import "scss/vars";
 @import "scss/scroll";
 @import "scss/basic";
-@import "scss/default";
 
-/* Libs **/
+// Modules
+@import "scss/default";
+@import "scss/home";

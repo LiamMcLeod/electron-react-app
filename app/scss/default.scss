@@ -1,10 +1,39 @@
 body {
+  user-select: none; //! important
+  font-family: "Avenir Next", Lato, Helvetica, sans-serif;
   position: relative;
-  color: white;
+  color: $color;
   height: 100vh;
   background-color:$color-main; 
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: hidden;
+}
+
+
+body>header {
+    background: $color-header;
+    position: fixed;
+    top: 0;
+    left: 0; // right: 0;
+    height: 65px;
+    width: 100%;
+    z-index: 99;
+}
+
+main {
+    padding-top: 65px; // height: 310px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    min-height: 782px; // max-height: 80px;
+}
+
+body>footer {
+    opacity: 0.5;
+    background-color: $color-footer;
+    border-top: 1px solid rgba(255, 255, 255, 0.19);
+    height: 235px;
+    margin-top: 40px;
+    padding-top: 40px;
 }
 
 h2 {
