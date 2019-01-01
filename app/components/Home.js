@@ -6,7 +6,6 @@ import styles from './Home.css';
 
 import Boot from './svgs/Boot.js';
 
-
 type Props = {};
 
 export default class Home extends Component<Props> {
@@ -14,7 +13,11 @@ export default class Home extends Component<Props> {
 
   render() {
     return (
-      <section id="home" className={""+ styles.container + ""} data-tid="container">
+      <section
+        id="home"
+        className={'' + styles.container + ' container'}
+        data-tid="container"
+      >
         {/** ROW ONE  */}
         <div class="row">
           <div class="col-6">
@@ -22,9 +25,9 @@ export default class Home extends Component<Props> {
               <Link to={routes.IMPORT} class="item-link" href="#">
                 <div class="home-item">
                   <div class="item-image">
-                     <Boot/>
+                    <Boot />
                   </div>
-                  <div class="item-text"> 
+                  <div class="item-text">
                     <h2 class="heading">Import</h2>
                     <p class="description">Import a Simc output.</p>
                   </div>
@@ -37,19 +40,21 @@ export default class Home extends Component<Props> {
               <Link to={routes.QUICKSIM} class="item-link" href="#">
                 <div class="home-item">
                   <div class="item-image">
-                     <Boot/>
+                    <Boot />
                   </div>
-                  <div class="item-text"> 
+                  <div class="item-text">
                     <h2 class="heading">Quick Sim</h2>
-                    <p class="description">Run a quick sim to get your current DPS.</p>
+                    <p class="description">
+                      Run a quick sim to get your current DPS.
+                    </p>
                   </div>
                 </div>
               </Link>
             </div>
           </div>
-      {/** OTHER */}
-      </div>
-      {/*! <Link to={routes.COUNTER}>to Counter</Link> */}
+          {/** OTHER */}
+        </div>
+        {/*! <Link to={routes.COUNTER}>to Counter</Link> */}
       </section>
     );
   }

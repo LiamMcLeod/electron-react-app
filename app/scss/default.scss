@@ -9,40 +9,6 @@ body {
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-x: hidden;
 }
-body>nav {
-    background: rgba(0, 0, 0, 0.875);
-    top: 0;
-    left: 0; // right: 0;
-    position: fixed;
-    height: 65px;
-    z-index: 99;
-}
-
-body>header {
-    top: 0;
-    left: 0; // right: 0;
-    width: 100%;
-}
-
-main {
-    padding-top: 65px; // height: 310px;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    min-height: 782px; // max-height: 80px;
-}
-
-main .container{
-        max-width: 1200px;
-}
-
-body>footer {
-    opacity: 0.5;
-    background-color: $color-footer;
-    border-top: 1px solid rgba(255, 255, 255, 0.19);
-    height: 245px;
-    margin-top: 40px;
-    padding-top: 40px;
-}
 
 a {
   color:$color-accent;

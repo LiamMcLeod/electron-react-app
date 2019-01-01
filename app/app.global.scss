@@ -3,15 +3,15 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 // Libs
-@import "scss/normalize";
-@import "~bootstrap/dist/css/bootstrap";
+@import 'scss/normalize';
+@import '~bootstrap/dist/css/bootstrap';
 
 // Mine
-@import "scss/vars";
-@import "scss/scroll";
-@import "scss/basic";
+@import 'scss/vars';
+@import 'scss/scroll';
+@import 'scss/basic';
 
 // Modules
-@import "scss/default";
-@import "scss/components";
-@import "scss/home";
+@import 'scss/default';
+@import 'scss/global';
+@import 'scss/components';
