@@ -1,4 +1,5 @@
 {
   "HOME": "/",
-  "QUICKSIM": "/sim/quick"
+  "QUICKSIM": "/sim/quick",
+  "IMPORT": "/profile/import"
 }

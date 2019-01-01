@@ -14,6 +14,14 @@
         }
       }());
     </script>
+
+     <script>
+        const {
+            ipcRenderer
+        } = require('electron');
+        //* request
+        ipcRenderer.send('dom-ready');
+    </script>
   </head>
   <body>
     <nav class="navbar">
@@ -37,7 +45,11 @@
       </div>
     </nav>
     <header>
-    
+      <script>
+       ipcRenderer.on('ping', (e, data) => {
+         console.log(data);
+       })
+       </script>
     </header>
     <main>
       <div id="root" class="container"></div>

@@ -19,14 +19,14 @@ export default class Home extends Component<Props> {
         <div class="row">
           <div class="col-6">
             <div className={styles.itemBounds} data-tid="container">
-              <Link to={routes.QUICKSIM} class="item-link" href="#">
+              <Link to={routes.IMPORT} class="item-link" href="#">
                 <div class="home-item">
                   <div class="item-image">
                      <Boot/>
                   </div>
                   <div class="item-text"> 
-                    <h2 class="heading">Quick Sim</h2>
-                    <p class="description">Run a quick sim to get your current DPS</p>
+                    <h2 class="heading">Import</h2>
+                    <p class="description">Import a Simc output.</p>
                   </div>
                 </div>
               </Link>
@@ -41,7 +41,7 @@ export default class Home extends Component<Props> {
                   </div>
                   <div class="item-text"> 
                     <h2 class="heading">Quick Sim</h2>
-                    <p class="description">Run a quick sim to get your current DPS</p>
+                    <p class="description">Run a quick sim to get your current DPS.</p>
                   </div>
                 </div>
               </Link>

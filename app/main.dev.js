@@ -14,6 +14,43 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import dotenv from 'dotenv/config';
+import passport from 'passport';
+import blizz from 'blizzard.js';
+import { userInfo } from 'os';
+
+var BnetStrategy = require('passport-bnet').Strategy;
+
+var BNET_ID = process.env.ID;
+var BNET_SECRET = process.env.SECRET;
+
+var blizzard = blizz.initialize({
+  // apikey: 
+});
+
+passport.use(new BnetStrategy({
+    clientID: BNET_ID,
+    clientSecret: BNET_SECRET,
+    callbackURL: "https://localhost:1212/auth/bnet/callback",
+    region: "eu"
+  },
+  function(accessToken, refreshToken, profile, done) {
+      console.log(accessToken);
+      blizzard = blizz.initialize({ apikey: accessToken });   
+      return done(null, profile);
+  })
+);
+passport.initialize();
+passport.authenticate(function (err, user, info) {
+  console.log(user);
+});
+
+// log.info("test");
+// const blizzard = blizz.initialize({ apikey: accessToken });
+// blizzard.wow.character(['profile'], { origin: 'eu', realm: 'kazzak', name: 'Tetrodotoxin' })
+//   .then(response => {
+//   console.log(response.data);
+// });
 
 export default class AppUpdater {
   constructor() {
@@ -99,4 +136,14 @@ app.on('ready', async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+});
+
+//* DOM ready, provide api data
+const {
+    ipcMain
+} = require('electron');
+ipcMain.on('dom-ready', () => {
+   var data = [];
+  data.unshift(process.env.NODE_ENV);
+  mainWindow.webContents.send('ping', data);
 });

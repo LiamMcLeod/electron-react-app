@@ -9,6 +9,24 @@ export default class QuickSim extends Component<Props> {
   props: Props;
 
   render() {
-   <h2>QUICKSIM</h2>
+    return(
+       <section id="quick-sim" data-tid="container">
+        <p><Link to={routes.HOME}>Return</Link></p>
+        <div>
+        
+         {/* <form> */}
+          <label>Region</label>
+          <select>
+            <option>EU </option>
+            <option>US</option>
+          </select>
+           Realm
+           <input/> 
+           Character
+           <input/>
+         {/* </form> */}
+        </div>
+      </section>
+    )
   }
 }
