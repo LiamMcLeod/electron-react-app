@@ -67,9 +67,9 @@ main .home-item {
   height: 130px;
   box-sizing: border-box;
   align-items: center;
-  margin: 0px;
+  margin: 0;
   background-color: rgb(41, 41, 41);
-  padding: 0px;
+  padding: 0;
   border-radius: 10px;
   border: 1px solid black;
 }
@@ -101,7 +101,7 @@ main p.description {
   box-sizing: border-box;
   font-size: 16px;
   font-weight: 600;
-  margin: 0px;
+  margin: 0;
   opacity: 0.875;
 }
 
@@ -129,7 +129,7 @@ footer .heading {
   font-size: 16px;
   font-weight: 600;
   line-height: 1.25;
-  margin: 0px;
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
@@ -145,6 +145,6 @@ footer .block {
 footer .text {
   box-sizing: border-box;
   font-size: 16px;
-  margin: 0px;
+  margin: 0;
   opacity: 0.875;
 }

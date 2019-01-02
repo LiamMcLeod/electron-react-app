@@ -24,7 +24,7 @@
     "postinstall": "yarn flow-typed && electron-builder install-app-deps package.json && yarn build-dll && opencollective-postinstall",
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{*{js,jsx,json},babelrc,eslintrc,prettierrc,stylelintrc}'",
     "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
-    "precommit": "lint-staged",
+    "_comment": "\"precommit\": \"lint-staged\"",
     "preinstall": "node ./internals/scripts/CheckYarn.js",
     "prestart": "yarn build",
     "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
@@ -185,6 +185,7 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "@fortawesome/fontawesome-free": "^5.6.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -257,7 +258,6 @@
     "yarn": "^1.12.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.3",
     "blizzard.js": "^2.3.2",
     "connected-react-router": "^5.0.1",
     "devtron": "^1.4.0",

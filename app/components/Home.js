@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import routes from '../constants/routes';
 import styles from './Home.css';
 
+//* Import SVGs
 import Boot from './svgs/Boot.js';
 
 type Props = {};

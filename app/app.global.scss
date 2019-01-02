@@ -4,14 +4,17 @@
  */
 // Libs
 @import 'scss/normalize';
-@import '~bootstrap/dist/css/bootstrap';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~bootstrap/scss/bootstrap';
 
 // Mine
 @import 'scss/vars';
+@import 'scss/default';
 @import 'scss/scroll';
-@import 'scss/basic';
 
 // Modules
-@import 'scss/default';
+@import 'scss/basic';
 @import 'scss/global';
+
+// Components
 @import 'scss/components';

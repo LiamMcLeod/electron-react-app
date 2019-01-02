@@ -19,3 +19,21 @@ main textarea#importInput {
   font-family: 'Courier New', Courier, monospace;
   font-size: 12px;
 }
+
+main .table-dark {
+  background: $color-box;
+}
+
+main .table-dark th,
+main .table-dark td,
+main .table-dark thead th {
+  border-color: $color-footer;
+}
+
+main .table-dark tr:nth-child(odd) {
+  //   border: 1px solid $color-footer;
+}
+
+main .table-dark tr:nth-child(even) {
+  //   border: 1px solid $color-footer;
+}

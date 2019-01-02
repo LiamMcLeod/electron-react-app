@@ -1,25 +1,24 @@
 body {
   user-select: none; //! important
-  font-family: "Avenir Next", Lato, Helvetica, sans-serif;
+  font-family: Helvetica, Helvetica Neue, Lato, Arial, sans-serif;
   position: relative;
   color: $color;
   height: 100vh;
-  width:100%;
-  background-color:$color-main; 
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
+  width: 100%;
+  background-color: $color-main;
   overflow-x: hidden;
 }
 
 a {
-  color:$color-accent;
+  color: $color-accent;
 }
 
 p {
-    color: $color;
-    font-size: 16px;
+  color: $color;
+  font-size: 16px;
 }
 
 h2 {
-    color:$color-accent;
-    font-size: 24px;
+  color: $color-accent;
+  font-size: 24px;
 }

@@ -1,43 +1,43 @@
 .show {
-    pointer-events: auto;
-    visibility: visible;
-    /* display: flex; */
+  pointer-events: auto;
+  visibility: visible;
+  /* display: flex; */
 }
 
 .hide {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .shown {
-    display: inherit;
+  display: inherit;
 }
 
 .fleft {
-    float: left
+  float: left;
 }
 
 .fright {
-    float: right;
+  float: right;
 }
 
 .fixed {
-    position: fixed;
+  position: fixed;
 }
 
 .inline-block {
-    display: inline-block;
+  display: inline-block;
 }
 
 .inline-flex {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .block {
@@ -45,6 +45,22 @@
 }
 
 *.unselectable {
-    -webkit-user-select: none;
-    user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@for $i from 10 through 100 {
+  .padding-top-#{$i} {
+    padding-top: #{$i}px;
+  }
+  .padding-bottom-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .padding-left-#{$i} {
+    padding-left: #{$i}px;
+  }
+  .padding-right-#{$i} {
+    padding-right: #{$i}px;
+  }
+  $i: $i + 9;
 }
