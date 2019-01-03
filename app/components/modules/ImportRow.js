@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import routes from '../../constants/routes';
 import ls from 'local-storage';
 
-import ImportDeleteRow from './ImportDeleteRow';
-
 import log from 'electron-log';
 
 type Props = {};
@@ -15,15 +13,13 @@ export default class ImportTable extends Component<Props> {
   constructor(Props) {
     super(Props);
     this.state = {
-      decoded: Props.decoded
+      // decoded: Props.decoded
     };
   }
 
   deleteRow = (e, id) => {
     e.preventDefault();
     // log.info('id:' + id);
-
-    // this.props.decoded.find(id => key !== id, {});
 
     var imports = [];
     if (ls.get('imports')) {
@@ -55,7 +51,6 @@ export default class ImportTable extends Component<Props> {
         <td>{this.props.decoded.region}</td>
         <td />
         <td>
-          {/* <ImportDeleteRow key={this.props.decoded.key} /> */}
           <a
             href="#"
             onClick={
