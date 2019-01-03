@@ -15,10 +15,7 @@ type Props = {};
 export default class Import extends Component<Props> {
   constructor(Props) {
     super(Props);
-    this.state = {
-      importString: '',
-      imported: []
-    };
+    this.state = { importString: '', imported: [] };
   }
   props: Props;
 
@@ -43,9 +40,7 @@ export default class Import extends Component<Props> {
   setStateImported = imported => {
     // log.info('Imports:' + imported);
     imported = imported.push(this.state.imported);
-    this.setState({
-      imported: imported
-    });
+    this.setState({ imported: imported });
     log.info('State:' + this.state.imported);
   };
 
@@ -55,15 +50,32 @@ export default class Import extends Component<Props> {
     var imports = [];
     if (ls.get('imports')) {
       imports = ls.get('imports');
-      log.info(imports);
+      // log.info(imports);
     }
 
-    imports.push({ key: '', string: this.state.importString });
-    log.info(imports);
+    imports.push({
+      key: this.generateId(),
+      string: this.state.importString
+    });
+    // log.info(imports);
 
     //Save to local-storage
     ls.set('imports', imports);
     this.setState({ importString: '' });
+  };
+
+  /**
+   * CBA installing uuid from npm for such a small task
+   * https://gist.github.com/gordonbrander/2230317
+   * supposedly manages 10 milion ids generated with 0 collisions
+   */
+  generateId = function() {
+    return (
+      '_' +
+      Math.random()
+        .toString(36)
+        .substr(2, 9)
+    );
   };
 
   //** For onChange even on text-area */
@@ -71,7 +83,7 @@ export default class Import extends Component<Props> {
     this.setState({
       importString: e.target.value
     });
-    console.log(this.state.importString);
+    log.info(this.state.importString);
   };
 
   render() {

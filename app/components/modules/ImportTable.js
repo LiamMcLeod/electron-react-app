@@ -62,7 +62,9 @@ export default class ImportTable extends Component<Props> {
 
     //* Generate
     for (var i = 0; i < decoded.length; i++) {
-      rows.push(<ImportRow simC="" decoded={decoded[i]} />);
+      rows.push(
+        <ImportRow key={decoded[i].key} simC="" decoded={decoded[i]} />
+      );
     }
 
     return rows;
@@ -82,32 +84,7 @@ export default class ImportTable extends Component<Props> {
               <th scope="col" colSpan="2" />
             </tr>
           </thead>
-          <tbody>
-            {this.populateTable()}
-            {/* START TEST ROW */}
-            {/* <tr> */}
-            {/* <td scope="row"> */}
-            {/* <i class="fas fa-bars" /> */}
-            {/* </td> */}
-            {/* <td> */}
-            {/* <i class="fas fa-chevron-down" /> */}
-            {/* </td> */}
-            {/* <td>Tetrodotoxin</td> */}
-            {/* <td>Kazzak</td> */}
-            {/* <td>EU</td> */}
-            {/* <td /> */}
-            {/* <td> */}
-            {/* <i class="fas fa-minus-circle" /> */}
-            {/* </td> */}
-            {/* </tr> */}
-            {/* END TEST ROW */}
-
-            {/* {this.populateTable()} */}
-            {/* {
-
-          });
-        } */}
-          </tbody>
+          <tbody>{this.populateTable()}</tbody>
         </table>
       </div>
     );
