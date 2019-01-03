@@ -52,25 +52,25 @@ export default class ImportTable extends Component<Props> {
   };
 
   populateTable = () => {
-    let table = [];
+    let rows = [];
 
     var decoded = this.getBasicSimCData();
 
     //* Rows
     for (let y = 0; y < decoded.length; y++) {
-      let children = [];
+      let cols = [];
       //* Cols
       for (let x = 0; x < 7; x++) {
         switch (x) {
           case 0:
-            children.push(
+            cols.push(
               <td>
                 <i class="fas fa-bars" />
               </td>
             );
             break;
           case 1:
-            children.push(
+            cols.push(
               <td>
                 <i class="fas fa-chevron-down" />
               </td>
@@ -78,21 +78,21 @@ export default class ImportTable extends Component<Props> {
             break;
           case 2:
             // TODO
-            children.push(<td>{decoded[y].name}</td>);
+            cols.push(<td>{decoded[y].name}</td>);
             break;
           case 3:
             // TODO
-            children.push(<td>{decoded[y].server}</td>);
+            cols.push(<td>{decoded[y].server}</td>);
             break;
           case 4:
             // TODO
-            children.push(<td>{decoded[y].region}</td>);
+            cols.push(<td>{decoded[y].region}</td>);
             break;
           case 5:
-            children.push(<td />);
+            cols.push(<td />);
             break;
           case 6:
-            children.push(
+            cols.push(
               <td>
                 <i class="fas fa-minus-circle" />
               </td>
@@ -103,47 +103,34 @@ export default class ImportTable extends Component<Props> {
         }
       }
       //* Generate
-      table.push(<tr>{children}</tr>);
+      rows.push(<tr>{cols}</tr>);
     }
-    return table;
+    return rows;
   };
 
   render() {
     return (
-      <div id="imports-table" class="padding-top-40">
-        {/* {log.info(this.props.imports)} */}
-        <table class="table table-striped table-dark">
-          <thead>
-            <tr>
-              <th scope="col" colSpan="2" />
-              <th scope="col">Name</th>
-              <th scope="col">Server</th>
-              <th scope="col">Region</th>
-              <th scope="col" colSpan="2" />
-            </tr>
-          </thead>
-          <tbody>
-            {/* START TEST ROW */}
-            {/* <tr> */}
-            {/* <td scope="row"> */}
-            {/* <i class="fas fa-bars" /> */}
-            {/* </td> */}
-            {/* <td> */}
-            {/* <i class="fas fa-chevron-down" /> */}
-            {/* </td> */}
-            {/* <td>Tetrodotoxin</td> */}
-            {/* <td>Kazzak</td> */}
-            {/* <td>EU</td> */}
-            {/* <td /> */}
-            {/* <td> */}
-            {/* <i class="fas fa-minus-circle" /> */}
-            {/* </td> */}
-            {/* </tr> */}
-            {/* END TEST ROW */}
-            {this.populateTable()}
-          </tbody>
-        </table>
-      </div>
+      <tbody>
+        {/* START TEST ROW */}
+        {/* <tr> */}
+        {/* <td scope="row"> */}
+        {/* <i class="fas fa-bars" /> */}
+        {/* </td> */}
+        {/* <td> */}
+        {/* <i class="fas fa-chevron-down" /> */}
+        {/* </td> */}
+        {/* <td>Tetrodotoxin</td> */}
+        {/* <td>Kazzak</td> */}
+        {/* <td>EU</td> */}
+        {/* <td /> */}
+        {/* <td> */}
+        {/* <i class="fas fa-minus-circle" /> */}
+        {/* </td> */}
+        {/* </tr> */}
+        {/* END TEST ROW */}
+
+        {this.populateTable()}
+      </tbody>
     );
   }
   componentDidMount() {}
