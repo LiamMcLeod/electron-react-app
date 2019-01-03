@@ -58,7 +58,7 @@ export default class Import extends Component<Props> {
       log.info(imports);
     }
 
-    imports.push(this.state.importString);
+    imports.push({ key: '', string: this.state.importString });
     log.info(imports);
 
     //Save to local-storage
@@ -94,21 +94,7 @@ export default class Import extends Component<Props> {
             Import
           </button>
         </div>
-        <div id="imports-table" class="padding-top-40">
-          {/* {log.info(this.props.imports)} */}
-          <table class="table table-striped table-dark">
-            <thead>
-              <tr>
-                <th scope="col" colSpan="2" />
-                <th scope="col">Name</th>
-                <th scope="col">Server</th>
-                <th scope="col">Region</th>
-                <th scope="col" colSpan="2" />
-              </tr>
-            </thead>
-            <ImportTable imports={this.getImported()} />
-          </table>
-        </div>
+        <ImportTable imports={this.getImported()} />
       </section>
     );
   }

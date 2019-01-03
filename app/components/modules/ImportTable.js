@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes';
+//* Components
+import ImportRow from './ImportRow';
 
 import log from 'electron-log';
 
@@ -45,7 +47,9 @@ export default class ImportTable extends Component<Props> {
       server = server[1];
       server = server.charAt(0).toUpperCase() + server.slice(1);
 
-      decoded.push({ name: name, server: server, region: region });
+      var key = this.props.imports[i].key;
+
+      decoded.push({ key: key, name: name, server: server, region: region });
     }
     // log.info(decoded);
     return decoded;
@@ -55,82 +59,60 @@ export default class ImportTable extends Component<Props> {
     let rows = [];
 
     var decoded = this.getBasicSimCData();
+    //TODO MAKE EACH ROW A COMPONENT INSTEAD FAR CLEANER NO NEED FOR FOR LOOP WITH ABSURD CASES HERE
 
-    //* Rows
-    for (let y = 0; y < decoded.length; y++) {
-      let cols = [];
-      //* Cols
-      for (let x = 0; x < 7; x++) {
-        switch (x) {
-          case 0:
-            cols.push(
-              <td>
-                <i class="fas fa-bars" />
-              </td>
-            );
-            break;
-          case 1:
-            cols.push(
-              <td>
-                <i class="fas fa-chevron-down" />
-              </td>
-            );
-            break;
-          case 2:
-            // TODO
-            cols.push(<td>{decoded[y].name}</td>);
-            break;
-          case 3:
-            // TODO
-            cols.push(<td>{decoded[y].server}</td>);
-            break;
-          case 4:
-            // TODO
-            cols.push(<td>{decoded[y].region}</td>);
-            break;
-          case 5:
-            cols.push(<td />);
-            break;
-          case 6:
-            cols.push(
-              <td>
-                <i class="fas fa-minus-circle" />
-              </td>
-            );
-            break;
-          case 7:
-            break;
-        }
-      }
-      //* Generate
-      rows.push(<tr>{cols}</tr>);
+    //* Generate
+    for (var i = 0; i < decoded.length; i++) {
+      rows.push(<ImportRow simC="" decoded={decoded[i]} />);
     }
+
     return rows;
   };
 
   render() {
     return (
-      <tbody>
-        {/* START TEST ROW */}
-        {/* <tr> */}
-        {/* <td scope="row"> */}
-        {/* <i class="fas fa-bars" /> */}
-        {/* </td> */}
-        {/* <td> */}
-        {/* <i class="fas fa-chevron-down" /> */}
-        {/* </td> */}
-        {/* <td>Tetrodotoxin</td> */}
-        {/* <td>Kazzak</td> */}
-        {/* <td>EU</td> */}
-        {/* <td /> */}
-        {/* <td> */}
-        {/* <i class="fas fa-minus-circle" /> */}
-        {/* </td> */}
-        {/* </tr> */}
-        {/* END TEST ROW */}
+      <div id="imports-table" class="padding-top-40">
+        {/* {log.info(this.props.imports)} */}
+        <table class="table table-striped table-dark">
+          <thead>
+            <tr>
+              <th scope="col" colSpan="2" />
+              <th scope="col">Name</th>
+              <th scope="col">Server</th>
+              <th scope="col">Region</th>
+              <th scope="col" colSpan="2" />
+            </tr>
+          </thead>
+          <tbody>
+            {this.populateTable()}
+            {/* START TEST ROW */}
+            {/* <tr> */}
+            {/* <td scope="row"> */}
+            {/* <i class="fas fa-bars" /> */}
+            {/* </td> */}
+            {/* <td> */}
+            {/* <i class="fas fa-chevron-down" /> */}
+            {/* </td> */}
+            {/* <td>Tetrodotoxin</td> */}
+            {/* <td>Kazzak</td> */}
+            {/* <td>EU</td> */}
+            {/* <td /> */}
+            {/* <td> */}
+            {/* <i class="fas fa-minus-circle" /> */}
+            {/* </td> */}
+            {/* </tr> */}
+            {/* END TEST ROW */}
 
-        {this.populateTable()}
-      </tbody>
+            {/* {this.populateTable()} */}
+            {/* {
+              rows.map(row => {
+                return <ObjectRow key={row.uniqueId} data="" columns="" />;
+              }
+          });
+        } */}
+          </tbody>
+        </table>
+      </div>
     );
   }
   componentDidMount() {}
