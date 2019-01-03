@@ -26,10 +26,9 @@ export default class ImportTable extends Component<Props> {
 
   getBasicSimCData = () => {
     var input = '';
-    var importsDecoded = [];
     var decoded = [];
     for (var i = 0; i < this.props.imports.length; i++) {
-      input = this.props.imports[i];
+      input = this.props.imports[i].string;
       input = input.split('\n');
 
       var name = input[1].split('=');
@@ -51,14 +50,14 @@ export default class ImportTable extends Component<Props> {
 
       decoded.push({ key: key, name: name, server: server, region: region });
     }
-    // log.info(decoded);
+
     return decoded;
   };
 
   populateTable = () => {
     let rows = [];
-
     var decoded = this.getBasicSimCData();
+    log.info(rows);
     //TODO MAKE EACH ROW A COMPONENT INSTEAD FAR CLEANER NO NEED FOR FOR LOOP WITH ABSURD CASES HERE
 
     //* Generate
@@ -105,9 +104,7 @@ export default class ImportTable extends Component<Props> {
 
             {/* {this.populateTable()} */}
             {/* {
-              rows.map(row => {
-                return <ObjectRow key={row.uniqueId} data="" columns="" />;
-              }
+
           });
         } */}
           </tbody>
