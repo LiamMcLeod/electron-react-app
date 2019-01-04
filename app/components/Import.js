@@ -7,7 +7,6 @@ import log from 'electron-log';
 
 import ls from 'local-storage';
 
-import ReturnButton from './modules/ReturnButton.js';
 import ImportTable from './modules/ImportTable.js';
 
 type Props = {};
@@ -19,6 +18,7 @@ export default class Import extends Component<Props> {
   }
   props: Props;
 
+  /** Retieve imported from local-storage */
   getImported = bool => {
     var imports = [];
     if (ls.get('imports')) {
@@ -37,6 +37,7 @@ export default class Import extends Component<Props> {
     }
   };
 
+  /** Update state wih imported */
   setStateImported = imported => {
     imported = imported.push(this.state.imported);
     this.setState({ imported: imported });
@@ -61,6 +62,8 @@ export default class Import extends Component<Props> {
 
       //Save to local-storage
       ls.set('imports', imports);
+    } else {
+      //todo Display notification component, i.e like the one planned for header
     }
     this.setState({ importString: '' });
   };

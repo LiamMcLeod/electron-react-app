@@ -26,29 +26,29 @@ var BnetStrategy = require('passport-bnet').Strategy;
 var BNET_ID = process.env.ID;
 var BNET_SECRET = process.env.SECRET;
 
-var blizzard = blizz.initialize({
-  // apikey:
-});
+// var blizzard = blizz.initialize({
+//   // apikey:
+// });
 
-passport.use(
-  new BnetStrategy(
-    {
-      clientID: BNET_ID,
-      clientSecret: BNET_SECRET,
-      callbackURL: 'https://localhost:1212/auth/bnet/callback',
-      region: 'eu'
-    },
-    function(accessToken, refreshToken, profile, done) {
-      console.log(accessToken);
-      blizzard = blizz.initialize({ apikey: accessToken });
-      return done(null, profile);
-    }
-  )
-);
-passport.initialize();
-passport.authenticate(function(err, user, info) {
-  console.log(user);
-});
+// passport.use(
+//   new BnetStrategy(
+//     {
+//       clientID: BNET_ID,
+//       clientSecret: BNET_SECRET,
+//       callbackURL: 'https://localhost:1212/auth/bnet/callback',
+//       region: 'eu'
+//     },
+//     function(accessToken, refreshToken, profile, done) {
+//       console.log(accessToken);
+//       blizzard = blizz.initialize({ apikey: accessToken });
+//       return done(null, profile);
+//     }
+//   )
+// );
+// passport.initialize();
+// passport.authenticate(function(err, user, info) {
+//   console.log(user);
+// });
 
 function runSim() {
   return (rep = new Promise(resolve => {
@@ -138,7 +138,12 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    icon: `file://${__dirname}/favicon.ico`,
+    webPreferences: {
+      darkTheme: true,
+      nodeIntegration: true
+    }
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -173,6 +178,10 @@ app.on('ready', async () => {
 const { ipcMain } = require('electron');
 ipcMain.on('dom-ready', () => {
   var data = [];
+  data.push({
+    id: BNET_ID,
+    secret: BNET_SECRET
+  });
   data.unshift(process.env.NODE_ENV);
   mainWindow.webContents.send('ping', data);
 });

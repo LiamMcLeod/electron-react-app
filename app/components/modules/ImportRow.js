@@ -14,7 +14,9 @@ export default class ImportTable extends Component<Props> {
     super(Props);
     this.state = {
       decoded: Props.decoded,
-      renderRow: true
+      renderRow: true,
+      selectable: Props.selectable,
+      selected: ''
     };
   }
 
@@ -36,10 +38,33 @@ export default class ImportTable extends Component<Props> {
     ls.set('imports', imports);
   };
 
+  selectRow = (e, id) => {
+    if (this.state.selectable) {
+      this.setState({ selected: id });
+      log.info('Selected: ' + this.state.selected);
+
+      //TODO ADJUST STYLE
+    }
+  };
+
   render() {
     if (this.state.renderRow) {
       return (
-        <tr>
+        // <tr onClick={((this.state.selectable) ? this.selectRow(e,this.state.decoded.key))}>
+        <tr
+          onClick={e => {
+            this.state.selectable
+              ? this.selectRow(e, this.state.decoded.key)
+              : this.selectRow(e);
+          }}
+          style={{
+            background:
+              this.state.decoded.key === this.state.selected
+                ? 'rgba(255, 255, 255, 0.5)'
+                : null
+          }}
+        >
+          {/* {log.info(this.state.decoded.key + ' ' + this.selected)} */}
           <td>
             <i class="fas fa-bars" />
           </td>

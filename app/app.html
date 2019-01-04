@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Electron Simcraft</title>
     <script>
+      // console.log(process.env.HOT);
       (function() {
         if (!process.env.HOT) {
           const link = document.createElement('link');
@@ -11,27 +12,33 @@
           link.href = './dist/style.css';
           // HACK: Writing the script path should be done with webpack
           document.getElementsByTagName('head')[0].appendChild(link);
-        }
-      }());
-    </script>
 
-     <script>
-        const {
-            ipcRenderer
-        } = require('electron');
-        //* request
-        ipcRenderer.send('dom-ready');
+          // const icon = document.createElement('link');
+          // icon.rel = 'icon';
+          // icon.type = 'image/x-icon';
+          // icon.href = './dist/favicon.ico';
+          // document.getElementsByTagName('head')[0].appendChild(icon);
+        }
+      })();
+    </script>
+    <!-- <link rel="icon" type="image/png" href="./favicon.png" /> -->
+    <script>
+      const { ipcRenderer } = require('electron');
+      //* request
+      ipcRenderer.send('dom-ready');
     </script>
   </head>
   <body>
-   <script>
-         ipcRenderer.on('ping', (e, data) => {
-           console.log(data);
-         })
+    <script>
+      ipcRenderer.on('ping', (e, data) => {
+        let env = data.shift();
+        console.log(env);
+        data = data[0];
+        // Bnet Details in here
+        console.log(data);
+      });
     </script>
-    <div id="root">
-     
-    </div>
+    <div id="root"></div>
     <script>
       {
         const scripts = [];
@@ -45,7 +52,7 @@
         // Dynamically insert the bundled app script in the renderer process
         const port = process.env.PORT || 1212;
         scripts.push(
-          (process.env.HOT)
+          process.env.HOT
             ? 'http://localhost:' + port + '/dist/renderer.dev.js'
             : './dist/renderer.prod.js'
         );
