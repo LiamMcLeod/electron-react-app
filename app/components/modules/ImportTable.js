@@ -57,7 +57,7 @@ export default class ImportTable extends Component<Props> {
   populateTable = () => {
     let rows = [];
     var decoded = this.getBasicSimCData();
-    log.info(rows);
+    // log.info(rows);
     //TODO MAKE EACH ROW A COMPONENT INSTEAD FAR CLEANER NO NEED FOR FOR LOOP WITH ABSURD CASES HERE
 
     //* Generate

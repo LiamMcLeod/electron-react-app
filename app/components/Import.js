@@ -38,10 +38,8 @@ export default class Import extends Component<Props> {
   };
 
   setStateImported = imported => {
-    // log.info('Imports:' + imported);
     imported = imported.push(this.state.imported);
     this.setState({ imported: imported });
-    log.info('State:' + this.state.imported);
   };
 
   //** For clicking Import Button event */
@@ -83,7 +81,6 @@ export default class Import extends Component<Props> {
     this.setState({
       importString: e.target.value
     });
-    log.info(this.state.importString);
   };
 
   render() {
