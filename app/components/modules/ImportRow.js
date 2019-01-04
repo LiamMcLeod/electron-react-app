@@ -30,7 +30,7 @@ export default class ImportTable extends Component<Props> {
 
     var i = imports.findIndex(o => o.key === id);
     if (i !== -1) {
-      imports = imports.splice(i, 1);
+      imports.splice(i, 1);
     }
 
     ls.set('imports', imports);
