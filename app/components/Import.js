@@ -44,6 +44,7 @@ export default class Import extends Component<Props> {
 
   //** For clicking Import Button event */
   saveImportString = e => {
+    //TODO ERROR CHECKING FOR VALID SIMC STRING
     // console.log(e);
     var imports = [];
     if (ls.get('imports')) {
@@ -51,14 +52,16 @@ export default class Import extends Component<Props> {
       // log.info(imports);
     }
 
-    imports.push({
-      key: this.generateId(),
-      string: this.state.importString
-    });
-    // log.info(imports);
+    if (this.state.importString) {
+      imports.push({
+        key: this.generateId(),
+        string: this.state.importString
+      });
+      // log.info(imports);
 
-    //Save to local-storage
-    ls.set('imports', imports);
+      //Save to local-storage
+      ls.set('imports', imports);
+    }
     this.setState({ importString: '' });
   };
 
