@@ -90,7 +90,7 @@ export default class ImportTable extends Component<Props> {
     // console.log(this.state.profiles);
     if (this.state.profiles) {
       var rows = this.state.profiles.map((row, i) => {
-        // TODO FIX DELETE ROW / ADD ACTION TO REDUX
+        // TODO add DELETE row ACTION TO REDUX
         // log.info(row.string);
         return (
           <ImportRow

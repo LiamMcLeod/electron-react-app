@@ -71,7 +71,7 @@ export default class ImportTable extends Component<Props> {
     if (i !== -1) {
       profiles.splice(i, 1);
     }
-    log.info(profiles);
+    // log.info(profiles);
     ls.set('profiles', profiles);
   };
 
