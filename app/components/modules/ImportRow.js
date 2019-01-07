@@ -13,78 +13,112 @@ export default class ImportTable extends Component<Props> {
   constructor(Props) {
     super(Props);
     this.state = {
-      decoded: Props.decoded,
+      row: Props.row,
       renderRow: true,
-      selectable: Props.selectable,
-      selected: ''
+      selectable: Props.selectable
     };
   }
+
+  getNameFromRow = row => {
+    var input = row.string;
+    input = input.split('\n');
+
+    var name = input[1].split('=');
+    //* Strip Quotes
+    name = name[1];
+    name = name.substring(1, name.length - 1);
+    return name;
+  };
+
+  getRegionFromRow = row => {
+    var input = row.string;
+    input = input.split('\n');
+
+    var region = input[4].split('=');
+    //* Make uppercase
+    region = region[1];
+    region = region.toUpperCase();
+
+    return region;
+  };
+
+  getServerFromRow = row => {
+    var input = row.string;
+    input = input.split('\n');
+
+    var server = input[5].split('=');
+    //* Capitalise first letter
+    server = server[1];
+    server = server.charAt(0).toUpperCase() + server.slice(1);
+    return server;
+  };
+
+  getKey = () => {
+    return this.props.row.key;
+  };
 
   deleteRow = (e, id) => {
     this.setState({ renderRow: false });
     e.preventDefault();
     // log.info('id:' + id);
 
-    var imports = [];
-    if (ls.get('imports')) {
-      imports = ls.get('imports');
+    var profiles = [];
+    if (ls.get('profiles')) {
+      profiles = ls.get('profiles');
     }
 
-    var i = imports.findIndex(o => o.key === id);
+    var i = profiles.findIndex(o => o.key === id);
     if (i !== -1) {
-      imports.splice(i, 1);
+      profiles.splice(i, 1);
     }
-
-    ls.set('imports', imports);
+    log.info(profiles);
+    ls.set('profiles', profiles);
   };
 
-  selectRow = (e, id) => {
-    if (this.state.selectable) {
-      this.setState({ selected: id });
-      log.info('Selected: ' + this.state.selected);
-
-      //TODO ADJUST STYLE
-    }
-  };
+  static getDerivedStateFromProps(Props) {
+    return null;
+  }
 
   render() {
     if (this.state.renderRow) {
       return (
-        // <tr onClick={((this.state.selectable) ? this.selectRow(e,this.state.decoded.key))}>
         <tr
           onClick={e => {
             this.state.selectable
-              ? this.selectRow(e, this.state.decoded.key)
-              : this.selectRow(e);
+              ? this.props.selectRow(e, this.state.row.key)
+              : this.props.selectRow(e); //  & (this.state.row.key !== this.state.selected)
           }}
           style={{
-            background:
-              this.state.decoded.key === this.state.selected
-                ? 'rgba(255, 255, 255, 0.5)'
-                : null
+            background: this.state.selected ? 'rgba(255, 255, 255, 0.5)' : null
           }}
         >
-          {/* {log.info(this.state.decoded.key + ' ' + this.selected)} */}
           <td>
-            <i class="fas fa-bars" />
+            <i className="fas fa-bars" />
           </td>
           <td>
-            <i class="fas fa-chevron-down" />
-            {/* <i class="fas fa-chevron-up" /> */}
+            <i className="fas fa-chevron-down" />
+            {/* <i className="fas fa-chevron-up" /> */}
           </td>
-          <td>{this.state.decoded.name}</td>
-          <td>{this.state.decoded.server}</td>
-          <td>{this.state.decoded.region}</td>
+          <td>
+            {/* {this.state.row.name} */}
+            {this.getNameFromRow(this.state.row)}
+          </td>
+          <td>
+            {/* {this.state.row.server} */}
+            {this.getServerFromRow(this.state.row)}
+          </td>
+          <td>
+            {/* {this.state.row.region} */}
+            {this.getRegionFromRow(this.state.row)}
+          </td>
           <td />
           <td>
             <a
               href="#"
-              onClick={
-                e => this.deleteRow(e, this.state.decoded.key) // onClick={this.deleteRow.bind(this, this.props.decoded.key)}
-              }
-              id={this.state.decoded.key}
+              onClick={e => this.deleteRow(e, this.props.row.key)}
+              id={this.props.row.key}
             >
-              <i class="fas fa-minus-circle" />
+              <i className="fas fa-minus-circle" />
             </a>
           </td>
         </tr>

@@ -11,8 +11,8 @@ export default class QuickSim extends Component<Props> {
 
   render() {
     return (
-      <section id="quick-sim" className={'container'} data-tid="container">
-        <h2 class="padding-left-20">QuickSim</h2>
+      <section id="quick-sim" className="container" data-tid="container">
+        <h2 className="padding-left-20">QuickSim</h2>
         {/* <div> */}
         {/* <form> */}
         {/* <label>Region</label> */}

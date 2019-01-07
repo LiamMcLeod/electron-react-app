@@ -12,29 +12,29 @@ export default class Nav extends Component<Props> {
   render() {
     // TODO ADJUST LINKS
     return (
-      <nav class="navbar">
-        <div class="container">
-          <ul class="nav">
+      <nav className="navbar">
+        <div className="container">
+          <ul className="nav">
             <li>
-              <Link class="navbar-brand" to={routes.HOME}>
+              <Link className="navbar-brand" to={routes.HOME}>
                 Electron Simcraft
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link active" to={routes.HOME}>
+            <li className="nav-item">
+              <Link className="nav-link active" to={routes.HOME}>
                 Home
               </Link>
             </li>
           </ul>
-          <ul class="nav justify-content-end">
-            <li class="nav-item">
-              <Link class="nav-link" to={routes.IMPORT}>
+          <ul className="nav justify-content-end">
+            <li className="nav-item">
+              <Link className="nav-link" to={routes.IMPORT}>
                 Import
               </Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {/* TODO */}
-              <Link class="nav-link" to={routes.IMPORT}>
+              <Link className="nav-link" to={routes.IMPORT}>
                 Profile
               </Link>
             </li>

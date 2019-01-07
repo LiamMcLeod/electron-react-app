@@ -3,19 +3,15 @@ import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
-
 import createRootReducer from '../reducers';
-//! Commented Out
-// import * as counterActions from '../actions/counter';
-import type { counterStateType } from '../reducers/types';
-var x;
+import * as profileActions from '../actions/profile';
+import type { profileStateType } from '../reducers/types';
 
 const history = createHashHistory();
 
-//! Commented Out
 const rootReducer = createRootReducer(history);
 
-const configureStore = (initialState?: counterStateType) => {
+const configureStore = (initialState?: profileStateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -40,8 +36,7 @@ const configureStore = (initialState?: counterStateType) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
-    //! Commented Out
-    // ...counterActions,
+    ...profileActions,
     ...routerActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
@@ -59,7 +54,6 @@ const configureStore = (initialState?: counterStateType) => {
   const enhancer = composeEnhancers(...enhancers);
 
   // Create Store
-  //! Commented Out
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
@@ -74,3 +68,6 @@ const configureStore = (initialState?: counterStateType) => {
 };
 
 export default { configureStore, history };
+//PERSISTENCE:https://redux.js.org/introduction/ecosystem#persistence
+// https://redux.js.org/introduction/getting-started
+// https://redux.js.org/basics/basic-tutorial

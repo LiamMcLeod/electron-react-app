@@ -8,107 +8,108 @@ import ls from 'local-storage';
 import ImportRow from './ImportRow';
 
 import log from 'electron-log';
-import { lastDayOfISOWeek } from 'date-fns';
 
 type Props = {};
-var Alt = {};
 export default class ImportTable extends Component<Props> {
   // TODO Each child in an array or iterator should have a unique "key" prop.
   constructor(Props) {
     super(Props);
-    this.state = {
-      selectable: false
-    };
+    this.state = { profiles: Props.profiles, selectable: false, selected: '' };
+
     if (Props.selectable) {
       this.state.selectable = Props.selectable;
     } else {
       this.state.selectable = false;
     }
   }
-  props: Alt;
-  getSimCName = () => {
-    // decodeSimCInput();
+  props: Props;
+
+  getNameFromRow = row => {
+    var input = row.string;
+    input = input.split('\n');
+
+    var name = input[1].split('=');
+    //* Strip Quotes
+    name = name[1];
+    name = name.substring(1, name.length - 1);
+    return name;
   };
 
-  decodeSimCInput = () => {
-    decoded = this.getBasicSimcData();
+  getRegionFromRow = row => {
+    var input = row.string;
+    input = input.split('\n');
+
+    var region = input[4].split('=');
+    //* Make uppercase
+    region = region[1];
+    region = region.toUpperCase();
+
+    return region;
   };
 
-  getBasicSimCData = () => {
-    var input = '';
-    var decoded = [];
-    var imports = [];
-    if (this.props.imports) {
-      imports = this.props.imports;
-    } else {
-      if (ls.get('imports')) {
-        imports = ls.get('imports');
-      }
-    }
+  getServerFromRow = row => {
+    var input = row.string;
+    input = input.split('\n');
 
-    if (imports) {
-      for (var i = 0; i < imports.length; i++) {
-        input = imports[i].string;
-        input = input.split('\n');
+    var server = input[5].split('=');
+    //* Capitalise first letter
+    server = server[1];
+    server = server.charAt(0).toUpperCase() + server.slice(1);
+    return server;
+  };
 
-        var name = input[1].split('=');
-        //* Strip Quotes
-        name = name[1];
-        name = name.substring(1, name.length - 1);
+  refreshRows = ignore => {
+    // log.info('refresh called');
+    // this.setState({ refreshRows: !this.state.refreshRows });
+    return ignore;
+  };
 
-        var region = input[4].split('=');
-        //* Make uppercase
-        region = region[1];
-        region = region.toUpperCase();
+  selectRow = (e, id) => {
+    // console.log(this);
+    if (this.state.selectable) {
+      // this.props.refreshRows(this.state.decoded.key);
+      this.setState({ selected: id });
+      log.info('Selected: ' + this.state.selected);
 
-        var server = input[5].split('=');
-        //* Capitalise first letter
-        server = server[1];
-        server = server.charAt(0).toUpperCase() + server.slice(1);
-
-        var key = imports[i].key;
-
-        decoded.push({
-          key: key,
-          name: name,
-          server: server,
-          region: region
-        });
-      }
-
-      return decoded;
-    } else {
+      //TODO ADJUST STYLE
       return null;
     }
   };
 
-  populateTable = () => {
-    let rows = [];
-    var decoded = this.getBasicSimCData();
-    // log.info(rows);
-    //TODO MAKE EACH ROW A COMPONENT INSTEAD FAR CLEANER NO NEED FOR FOR LOOP WITH ABSURD CASES HERE
-
-    //* Generate
-    for (var i = 0; i < decoded.length; i++) {
-      rows.push(
-        <ImportRow
-          selectable={this.state.selectable}
-          key={decoded[i].key}
-          simC=""
-          decoded={decoded[i]}
-        />
-      );
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.profiles) {
+      return { profiles: nextProps.profiles };
     }
+  }
 
-    return rows;
-  };
+  componentDidMount() {
+    // var decoded = this.getBasicSimCData();
+  }
 
   render() {
+    // console.log(this.state.profiles);
+    if (this.state.profiles) {
+      var rows = this.state.profiles.map((row, i) => {
+        // TODO FIX DELETE ROW / ADD ACTION TO REDUX
+        // log.info(row.string);
+        return (
+          <ImportRow
+            selectable={this.state.selectable}
+            key={row.key}
+            simC=""
+            row={row}
+            refreshRows={this.refreshRows}
+            selectRow={this.selectRow}
+          />
+        );
+      });
+    }
+
     return (
-      <div id="imports-table" class="padding-top-40">
+      <div id="imports-table" className="padding-top-40">
         {/* {log.info(this.state.selectable)} */}
         {/* {log.info(this.props.imports)} */}
-        <table class="table table-striped table-dark">
+        <table className="table table-striped table-dark">
           <thead>
             <tr>
               <th scope="col" colSpan="2" />
@@ -118,12 +119,11 @@ export default class ImportTable extends Component<Props> {
               <th scope="col" colSpan="2" />
             </tr>
           </thead>
-          <tbody>{this.populateTable()}</tbody>
+          <tbody>{this.state.profiles ? rows : null}</tbody>
         </table>
       </div>
     );
   }
-  componentDidMount() {}
 
   componentWillUnmount() {}
 }

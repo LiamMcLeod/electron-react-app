@@ -18,7 +18,7 @@ export default class Import extends Component<Props> {
         <Link to={routes.HOME}>
           <button
             type="button"
-            class="btn background-colour-accent font-weight-bold"
+            className="btn background-colour-accent font-weight-bold"
           >
             &#8629; Return
           </button>
