@@ -88,6 +88,7 @@ export default class ImportTable extends Component<Props> {
 
   render() {
     // console.log(this.state.profiles);
+    var { deleteProfile } = this.props;
     if (this.state.profiles) {
       var rows = this.state.profiles.map((row, i) => {
         // TODO add DELETE row ACTION TO REDUX
@@ -100,6 +101,7 @@ export default class ImportTable extends Component<Props> {
             row={row}
             refreshRows={this.refreshRows}
             selectRow={this.selectRow}
+            deleteProfile={deleteProfile}
           />
         );
       });

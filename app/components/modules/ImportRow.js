@@ -6,7 +6,10 @@ import ls from 'local-storage';
 
 import log from 'electron-log';
 
-type Props = {};
+type Props = {
+  //
+  deleteProfile: () => void
+};
 
 export default class ImportTable extends Component<Props> {
   props: Props;
@@ -60,24 +63,9 @@ export default class ImportTable extends Component<Props> {
   deleteRow = (e, id) => {
     this.setState({ renderRow: false });
     e.preventDefault();
-    // log.info('id:' + id);
-
-    var profiles = [];
-    if (ls.get('profiles')) {
-      profiles = ls.get('profiles');
-    }
-
-    var i = profiles.findIndex(o => o.key === id);
-    if (i !== -1) {
-      profiles.splice(i, 1);
-    }
-    // log.info(profiles);
-    ls.set('profiles', profiles);
+    const { deleteProfile } = this.props;
+    deleteProfile(e, id);
   };
-
-  static getDerivedStateFromProps(Props) {
-    return null;
-  }
 
   render() {
     if (this.state.renderRow) {

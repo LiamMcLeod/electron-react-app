@@ -4,6 +4,7 @@ import {
   GET_PROFILE,
   GET_ALL_PROFILES,
   POST_PROFILE,
+  DELETE_PROFILE,
   SET_PROFILE
 } from '../actions/profile';
 import type { Action } from './types';
@@ -43,6 +44,27 @@ export default function profile(state = [], action) {
       ls.set('profiles', profiles);
       // log.info(state);
       return [...state, { key: action.key, string: action.string }];
+    case DELETE_PROFILE:
+      // log.info(action.key);
+      var success = false;
+      var profiles = [];
+      if (ls.get('profiles')) {
+        profiles = ls.get('profiles');
+      }
+
+      var i = profiles.findIndex(o => o.key === action.key);
+      if (i !== -1) {
+        profiles.splice(i, 1);
+        i = -1;
+      }
+
+      i = profiles.findIndex(o => o.key === action.key);
+      if (i === -1) {
+        success = true;
+      }
+      ls.set('profiles', profiles);
+      // return success;
+      return profiles;
     case SET_PROFILE:
       return state;
     default:

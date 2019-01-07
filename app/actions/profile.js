@@ -7,11 +7,12 @@ import log from 'electron-log';
 export const GET_PROFILE = 'Retrieve a saved SimC profiles';
 export const GET_ALL_PROFILES = 'Retrieve all saved SimC profiles';
 export const POST_PROFILE = 'Save submitted SimC profiles';
+export const DELETE_PROFILE = 'Delete a submitted SimC profile';
 export const SET_PROFILE = "React's setSate with profiles";
 
 //! Actions describe events and deliver a payload but nothing else
 
-export const getProfiles = key => {
+export const getProfile = key => {
   return {
     key: key,
     type: GET_PROFILE
@@ -25,7 +26,7 @@ export const getAllProfiles = () => {
   };
 };
 
-export const postProfiles = (e, string) => {
+export const postProfile = (e, string) => {
   // e.preventDefault();
   return {
     key: generateId(),
@@ -34,7 +35,15 @@ export const postProfiles = (e, string) => {
   };
 };
 
-export function setProfiles() {
+export const deleteProfile = (e, key) => {
+  // e.preventDefault();
+  return {
+    key: key,
+    type: DELETE_PROFILE
+  };
+};
+
+export function setProfile() {
   return {
     type: SET_PROFILE
   };
