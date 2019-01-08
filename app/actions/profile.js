@@ -6,8 +6,9 @@ import log from 'electron-log';
 
 export const GET_PROFILE = 'Retrieve a saved SimC profiles';
 export const GET_ALL_PROFILES = 'Retrieve all saved SimC profiles';
-export const POST_PROFILE = 'Save submitted SimC profiles';
+export const POST_PROFILE = 'Save a submitted SimC profile';
 export const DELETE_PROFILE = 'Delete a submitted SimC profile';
+export const SELECT_PROFILE = 'Selects a submitted SimC profile';
 export const SET_PROFILE = "React's setSate with profiles";
 
 //! Actions describe events and deliver a payload but nothing else
@@ -40,6 +41,14 @@ export const deleteProfile = (e, key) => {
   return {
     key: key,
     type: DELETE_PROFILE
+  };
+};
+
+export const selectProfile = key => {
+  // e.preventDefault();
+  return {
+    key: key,
+    type: SELECT_PROFILE
   };
 };
 

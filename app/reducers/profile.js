@@ -5,6 +5,7 @@ import {
   GET_ALL_PROFILES,
   POST_PROFILE,
   DELETE_PROFILE,
+  SELECT_PROFILE,
   SET_PROFILE
 } from '../actions/profile';
 import type { Action } from './types';
@@ -29,8 +30,8 @@ export default function profile(state = [], action) {
         profiles = ls.get('profiles');
         // log.info(profiles);
       }
-
-      return profiles;
+      // log.info({ profiles: profiles });
+      return { profiles: profiles };
     case POST_PROFILE:
       var profiles = [];
       var profile = { key: action.key, string: action.string };
@@ -43,7 +44,7 @@ export default function profile(state = [], action) {
 
       ls.set('profiles', profiles);
       // log.info(state);
-      return [...state, { key: action.key, string: action.string }];
+      return { profiles: profiles };
     case DELETE_PROFILE:
       // log.info(action.key);
       var success = false;
@@ -64,7 +65,15 @@ export default function profile(state = [], action) {
       }
       ls.set('profiles', profiles);
       // return success;
-      return profiles;
+      return { profiles: profiles };
+    case SELECT_PROFILE:
+      var profiles = [];
+      if (ls.get('profiles')) {
+        profiles = ls.get('profiles');
+        // log.info(profiles);
+      }
+      i = profiles.findIndex(o => o.key === action.key);
+      return { profiles: profiles, selected: profiles[i] };
     case SET_PROFILE:
       return state;
     default:

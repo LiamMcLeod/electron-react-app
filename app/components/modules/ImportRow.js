@@ -8,7 +8,8 @@ import log from 'electron-log';
 
 type Props = {
   //
-  deleteProfile: () => void
+  deleteProfile: () => void,
+  selectProfile: () => void
 };
 
 export default class ImportTable extends Component<Props> {
@@ -67,17 +68,30 @@ export default class ImportTable extends Component<Props> {
     deleteProfile(e, id);
   };
 
+  selectRow = (e, id) => {
+    // const { selectProfile } = this.props;
+    if (this.state.selectable) {
+      this.setState({ selected: id });
+      // log.info('Selected: ' + id);
+      this.props.selectRow(id);
+      return null;
+    }
+  };
+
   render() {
     if (this.state.renderRow) {
       return (
         <tr
           onClick={e => {
             this.state.selectable
-              ? this.props.selectRow(e, this.state.row.key)
-              : this.props.selectRow(e); //  & (this.state.row.key !== this.state.selected)
+              ? this.selectRow(e, this.state.row.key)
+              : this.selectRow(e); //  & (this.state.row.key !== this.state.selected)
           }}
           style={{
-            background: this.state.selected ? 'rgba(255, 255, 255, 0.5)' : null
+            background:
+              this.state.selected === this.props.getSelectedRow()
+                ? 'rgba(255, 255, 255, 0.5)'
+                : null
           }}
         >
           <td>

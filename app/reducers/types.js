@@ -2,8 +2,9 @@ import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 
 export type profileStateType = {
   //* 1. States that are parsed to 1. In ImportPage.js
-  +profile: Array,
+  +profiles: Array,
   +profile: Object
+  +selected: String
 };
 
 export type Action = {

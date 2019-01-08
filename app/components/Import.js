@@ -61,6 +61,7 @@ export default class Import extends Component<Props> {
       getAllProfiles,
       postProfile,
       deleteProfile,
+      selectProfile,
       setProfile,
       profiles
     } = this.props;
@@ -86,15 +87,11 @@ export default class Import extends Component<Props> {
           >
             Import
           </button>
-          {/* </button> <button onClick={e => this.saveImportString(e)} type="button" className="btn btn-lg btn-block background-colour-accent font-weight-bold">
-            Import
-          </button> */}
         </div>
         <ImportTable
           deleteProfile={deleteProfile}
           profiles={this.state.profiles}
         />
-        {/* <ImportTable imports={this.state.profiles} /> */}
       </section>
     );
   }
