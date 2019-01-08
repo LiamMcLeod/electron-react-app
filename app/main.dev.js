@@ -139,14 +139,17 @@ app.on('ready', async () => {
     show: false,
     width: 1024,
     height: 728,
-    icon: `file://${__dirname}/favicon.ico`,
+    icon: `${__dirname}/favicon-32x32.png`,
+    title: 'Electron-React Simcraft Experiment',
+    backgroundColor: '#333339',
     webPreferences: {
       darkTheme: true,
       nodeIntegration: true
     }
   });
-
   mainWindow.loadURL(`file://${__dirname}/app.html`);
+
+  mainWindow.setMenu(null);
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
@@ -166,8 +169,8 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  // const menuBuilder = new MenuBuilder(mainWindow);
+  // menuBuilder.buildMenu();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
