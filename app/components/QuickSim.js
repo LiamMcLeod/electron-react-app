@@ -6,6 +6,7 @@ import routes from '../constants/routes';
 import generateId from '../modules/GenerateId';
 
 var spawn = require('child_process').spawn;
+const fs = require('fs');
 
 import log from 'electron-log';
 
@@ -58,78 +59,92 @@ export default class QuickSim extends Component<Props> {
         server: this.state.serverName,
         region: this.state.regionISO
       };
-      this.runSim(armory);
+      // var id = new Promise();
+      var id = this.runSim(armory);
+      if (fs.existsSync(__dirname + `\\tmp\\${id}.json`)) {
+        log.info('File Found.');
+      } else {
+        log.info('Not found');
+      }
     } else {
       if (selected && selected.key) {
-        log.info(selected.key);
-        console.log(spawn);
+        // log.info(selected.key);
         this.runSim(selected);
       }
     }
   };
 
   runSim = selected => {
-    log.info(selected);
     var id = generateId();
     if (selected.character) {
-      log.info(`${selected.region},${selected.server},${selected.character}`);
+      switch (process.platform) {
+        case 'win32':
+          log.info('Detected Windows OS');
+          log.info('Running Simulation');
+          const simc = spawn('./simc/simc.exe', [
+            'armory=' +
+              `${selected.region},${selected.server},${selected.character}`,
+            'json2=' + __dirname + `\\tmp\\${id}.json`,
+            'iterations=10000',
+            // 'calculate_scale_factors=0',
+            // 'output=' + __dirname + `\\tmp\\${id}.txt`,
+            // 'xml=' + __dirname + `\\tmp\\${id}.xml`,
+            'html=' + __dirname + `\\tmp\\${id}.html`
+          ]);
+          simc.stdout.on('data', data => {
+            log.info(`stdout: ${data}`);
+          });
+          simc.stderr.on('data', data => {
+            log.info(`stderr: ${data}`);
+          });
+          simc.on('close', () => {});
+          break;
+          return id;
+        default:
+          log.info('Platform not supported.');
+          break;
+      }
+    }
+  };
+
+  runSimAsyc = selected => {
+    var id = generateId();
+    if (selected.character) {
+      // log.info(`${selected.region},${selected.server},${selected.character}`);
       var rep = new Promise(resolve => {
         switch (process.platform) {
           case 'win32':
-            console.log('Detected Windows OS');
-            console.log('Running test Simulation');
-            log.info(__dirname);
+            log.info('Detected Windows OS');
+            log.info('Running Simulation');
             const simc = spawn('./simc/simc.exe', [
               'armory=' +
                 `${selected.region},${selected.server},${selected.character}`,
-              // __dirname + `\\tmp\\${id}.simc`,
+              'json2=' + __dirname + `\\tmp\\${id}.json`
               // 'calculate_scale_factors=0',
-              'html=' + __dirname + `\\tmp\\${id}.html`
-              // 'iterations=5000'
+              // 'output=' + __dirname + `\\tmp\\${id}.txt`,
+              // 'xml=' + __dirname + `\\tmp\\${id}.xml`,
+              // 'html=' + __dirname + `\\tmp\\${id}.html`
             ]);
             simc.stdout.on('data', data => {
-              console.log(`stdout: ${data}`);
+              log.info(`stdout: ${data}`);
             });
-
             simc.stderr.on('data', data => {
-              console.log(`stderr: ${data}`);
+              log.info(`stderr: ${data}`);
             });
-
             simc.on('close', () => resolve(true));
             break;
         }
+      }).then(() => {
+        log.info(rep, id);
+        return id;
       });
-      return rep;
-    } else {
-      var rep = new Promise(resolve => {
-        switch (process.platform) {
-          case 'win32':
-            console.log('Detected Windows OS');
-            console.log('Running test Simulation');
-            log.info(__dirname);
-            const simc = spawn('./simc/simc.exe', [
-              __dirname + `\\tmp\\${selected.key}.simc`,
-              'calculate_scale_factors=0',
-              'html=' + `\\reports\\${selected.key}.html`,
-              'iterations=5000'
-            ]);
-            simc.stdout.on('data', data => {
-              console.log(`stdout: ${data}`);
-            });
-
-            simc.stderr.on('data', data => {
-              console.log(`stderr: ${data}`);
-            });
-
-            simc.on('close', () => resolve(true));
-            break;
-        }
-      });
-      return rep;
     }
   };
+
   updateCharacterName = e => {
-    this.setState({ characterName: e.target.value });
+    this.setState({
+      characterName: e.target.value
+    });
   };
   updateServerName = e => {
     this.setState({ serverName: e.target.value });
