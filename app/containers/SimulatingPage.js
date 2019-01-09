@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //Components
-import Quick from '../components/QuickSim';
+import Simming from '../components/Simming';
 //Redux: Profile
 import * as ProfileActions from '../actions/profile';
 
@@ -10,9 +10,7 @@ function mapStateToProps(state) {
   // console.log(state);
   return {
     //* 1. From Types
-    state: state,
-    profiles: state.profiles.profiles,
-    selected: state.profiles.selected
+    state: state
   };
 }
 
@@ -24,4 +22,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Quick);
+)(Simming);

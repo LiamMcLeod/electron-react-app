@@ -8,8 +8,10 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 import QuickSimPage from './containers/QuickSimPage';
 import ImportPage from './containers/ImportPage';
-import ReturnButton from './components/modules/ReturnButton';
+import SimulatingPage from './containers/SimulatingPage';
+import ResultsPage from './containers/ResultsPage';
 
+import ReturnButton from './components/modules/ReturnButton';
 export default class Routes extends React.Component<Props> {
   props: Props;
   state = { returnHidden: true };
@@ -32,11 +34,13 @@ export default class Routes extends React.Component<Props> {
           {!isHome && <ReturnButton />}
           <App>
             <Switch>
-              {/* MISC COMPONENTS */}
-              <Route path={routes.QUICKSIM} component={QuickSimPage} />
-              <Route path={routes.IMPORT} component={ImportPage} />
               {/* HOME COMPONENT */}
               <Route exact path={routes.HOME} component={HomePage} />
+              {/* MISC COMPONENTS */}
+              <Route path={routes.IMPORT} component={ImportPage} />
+              <Route path={routes.QUICKSIM} component={QuickSimPage} />
+              <Route path={routes.RUNNING} component={SimulatingPage} />
+              <Route path={routes.RESULTS} component={ResultsPage} />
             </Switch>
           </App>
         </main>
