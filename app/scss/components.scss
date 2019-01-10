@@ -30,6 +30,10 @@ main textarea.dark-textarea {
   font-family: 'Courier New', Courier, monospace;
   font-size: 12px;
 }
+main textarea.dark-textarea:focus {
+  background: $color-input;
+  color: #000;
+}
 
 main .table-dark {
   background: $color-box;

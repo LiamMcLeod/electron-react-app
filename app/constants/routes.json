@@ -1,7 +1,6 @@
 {
   "HOME": "/",
   "QUICKSIM": "/sim/quick",
-  "SIMMING": "/sim/running",
   "RESULTS": "/sim/results",
   "IMPORT": "/profile/import"
 }

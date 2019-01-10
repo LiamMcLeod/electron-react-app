@@ -9,7 +9,11 @@ export const GET_ALL_PROFILES = 'Retrieve all saved SimC profiles';
 export const POST_PROFILE = 'Save a submitted SimC profile';
 export const DELETE_PROFILE = 'Delete a submitted SimC profile';
 export const SELECT_PROFILE = 'Selects a submitted SimC profile';
+export const STORE_ID = 'Stores a file ID to later display results for';
+export const GET_ID = 'Gets a file ID to display results for';
 export const SET_PROFILE = "React's setSate with profiles";
+
+var fileId = '';
 
 //! Actions describe events and deliver a payload but nothing else
 
@@ -52,8 +56,23 @@ export const selectProfile = key => {
   };
 };
 
-export function setProfile() {
+export const storeId = id => {
+  fileId = id;
+  return {
+    id: id,
+    type: STORE_ID
+  };
+};
+
+export const getId = id => {
+  return {
+    id: fileId,
+    type: GET_ID
+  };
+};
+
+export const setProfile = () => {
   return {
     type: SET_PROFILE
   };
-}
+};

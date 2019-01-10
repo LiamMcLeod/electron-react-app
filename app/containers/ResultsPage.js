@@ -8,9 +8,11 @@ import * as ProfileActions from '../actions/profile';
 
 function mapStateToProps(state) {
   // console.log(state);
+  // console.log(state);
   return {
     //* 1. From Types
-    state: state
+    state: state,
+    id: state.profiles
   };
 }
 

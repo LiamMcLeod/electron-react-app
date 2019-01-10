@@ -6,6 +6,8 @@ import {
   POST_PROFILE,
   DELETE_PROFILE,
   SELECT_PROFILE,
+  STORE_ID,
+  GET_ID,
   SET_PROFILE
 } from '../actions/profile';
 import type { Action } from './types';
@@ -13,6 +15,7 @@ import type { Action } from './types';
 import ls from 'local-storage';
 
 import log from 'electron-log';
+import { id } from 'postcss-selector-parser';
 
 export default function profile(state = [], action) {
   switch (action.type) {
@@ -76,6 +79,11 @@ export default function profile(state = [], action) {
       return { profiles: profiles, selected: profiles[i] };
     case SET_PROFILE:
       return state;
+    case STORE_ID:
+      log.info('Storing: ' + action.id);
+      return action.id;
+    case GET_ID:
+      return action.id;
     default:
       return state;
   }

@@ -8,34 +8,41 @@ import generateId from '../modules/GenerateId';
 import log from 'electron-log';
 
 type Props = {
-  getAllProfiles: () => void,
-  deleteProfile: () => void,
-  selectProfile: () => void,
-  profiles: Array,
-  selected: String
+  getId: () => void,
+  profiles: String,
+  id: String
 };
 
 export default class Result extends Component<Props> {
   constructor(Props) {
     super(Props);
-    this.state = {};
+    this.state = {
+      id: ''
+    };
   }
   props: Props;
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { getId } = this.props;
+    getId();
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return null;
+    if (nextProps.profiles) {
+      return { id: nextProps.profiles };
+    } else return null;
   }
 
   render() {
-    const { deleteProfile, selectProfile, profiles } = this.props;
+    const { getId } = this.props;
     // log.info(profiles);
     return (
-      <section id="quick-sim" className="container" data-tid="container">
+      <section id="sim-results" className="container" data-tid="container">
         <h2 className="padding-left-20">Results</h2>
+        <button className="btn background-colour-accent font-weight-bold">
+          Export
+        </button>
       </section>
     );
-    i;
   }
 }

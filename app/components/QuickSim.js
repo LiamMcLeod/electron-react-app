@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import routes from '../constants/routes';
 
 import generateId from '../modules/GenerateId';
@@ -16,6 +16,7 @@ type Props = {
   getAllProfiles: () => void,
   deleteProfile: () => void,
   selectProfile: () => void,
+  storeId: () => void,
   profiles: Array,
   selected: String
 };
@@ -25,9 +26,12 @@ export default class QuickSim extends Component<Props> {
     super(Props);
     this.state = {
       profiles: [],
-      characterName: '',
-      serverName: '',
-      regionISO: 'EU'
+      characterName: 'Tetrodotoxin',
+      serverName: 'Kazzak',
+      regionISO: 'EU', // process: 'quicksim', //!Change //!Change
+      running: false,
+      output: '',
+      toResults: false
     };
   }
   props: Props;
@@ -59,13 +63,19 @@ export default class QuickSim extends Component<Props> {
         server: this.state.serverName,
         region: this.state.regionISO
       };
-      // var id = new Promise();
-      var id = this.runSim(armory);
-      if (fs.existsSync(__dirname + `\\tmp\\${id}.json`)) {
-        log.info('File Found.');
-      } else {
-        log.info('Not found');
-      }
+      this.setState({ running: true });
+      this.runSimAsyc(armory);
+      // var runSim = new Promise(resolve => {
+      //   var id = this.runSim(armory);
+      //   // while (!id) {}
+      //   resolve(id);
+      // }).then(id => {
+      //   if (fs.existsSync(__dirname + `\\tmp\\${id}.json`)) {
+      //     log.info('File Found.');
+      //   } else {
+      //     log.info('Not found');
+      //   }
+      // });
     } else {
       if (selected && selected.key) {
         // log.info(selected.key);
@@ -74,40 +84,46 @@ export default class QuickSim extends Component<Props> {
     }
   };
 
-  runSim = selected => {
-    var id = generateId();
-    if (selected.character) {
-      switch (process.platform) {
-        case 'win32':
-          log.info('Detected Windows OS');
-          log.info('Running Simulation');
-          const simc = spawn('./simc/simc.exe', [
-            'armory=' +
-              `${selected.region},${selected.server},${selected.character}`,
-            'json2=' + __dirname + `\\tmp\\${id}.json`,
-            'iterations=10000',
-            // 'calculate_scale_factors=0',
-            // 'output=' + __dirname + `\\tmp\\${id}.txt`,
-            // 'xml=' + __dirname + `\\tmp\\${id}.xml`,
-            'html=' + __dirname + `\\tmp\\${id}.html`
-          ]);
-          simc.stdout.on('data', data => {
-            log.info(`stdout: ${data}`);
-          });
-          simc.stderr.on('data', data => {
-            log.info(`stderr: ${data}`);
-          });
-          simc.on('close', () => {});
-          break;
-          return id;
-        default:
-          log.info('Platform not supported.');
-          break;
-      }
-    }
-  };
+  // runSim = selected => {
+  //   var id = generateId();
+  //   if (selected.character) {
+  //     switch (process.platform) {
+  //       case 'win32':
+  //         log.info('Detected Windows OS');
+  //         log.info('Running Simulation');
+  //         const simc = spawn('./simc/simc.exe', [
+  //           'armory=' +
+  //             `${selected.region},${selected.server},${selected.character}`,
+  //           'json2=' + __dirname + `\\tmp\\${id}.json`,
+  //           'iterations=10000'
+  //           // 'calculate_scale_factors=0',
+  //           // 'output=' + __dirname + `\\tmp\\${id}.txt`,
+  //           // 'xml=' + __dirname + `\\tmp\\${id}.xml`,
+  //           // 'html=' + __dirname + `\\tmp\\${id}.html`
+  //         ]);
+  //         simc.stdout.on('data', data => {
+  //           this.setState({ output: this.state.output + '\n' + data });
+  //           log.info(`stdout: ${data}`);
+  //         });
+  //         simc.stderr.on('data', data => {
+  //           this.setState({ output: data });
+  //           log.info(`stderr: ${data}`);
+  //         });
+  //         simc.on('close', id => {
+  //           this.setState({ toResults: true });
+  //           return id;
+  //         });
+  //         break;
+  //       default:
+  //         log.info('Platform not supported.');
+  //         break;
+  //     }
+  //     return id;
+  //   }
+  // };
 
   runSimAsyc = selected => {
+    const { storeId } = this.props;
     var id = generateId();
     if (selected.character) {
       // log.info(`${selected.region},${selected.server},${selected.character}`);
@@ -119,23 +135,39 @@ export default class QuickSim extends Component<Props> {
             const simc = spawn('./simc/simc.exe', [
               'armory=' +
                 `${selected.region},${selected.server},${selected.character}`,
-              'json2=' + __dirname + `\\tmp\\${id}.json`
+              'json2=' + __dirname + `\\tmp\\${id}.json`,
+              'iterations=10000'
               // 'calculate_scale_factors=0',
               // 'output=' + __dirname + `\\tmp\\${id}.txt`,
               // 'xml=' + __dirname + `\\tmp\\${id}.xml`,
               // 'html=' + __dirname + `\\tmp\\${id}.html`
             ]);
             simc.stdout.on('data', data => {
-              log.info(`stdout: ${data}`);
+              this.setState({
+                output: data + '\n' + this.state.output
+              });
+              // log.info(`stdout: ${data}`);
             });
             simc.stderr.on('data', data => {
-              log.info(`stderr: ${data}`);
+              this.setState({
+                output: data + '\n' + this.state.output
+              });
+              // log.info(`stderr: ${data}`);
             });
-            simc.on('close', () => resolve(true));
+            simc.on('close', id => {
+              this.setState({ toResults: true });
+              // storeId(id);
+              return id;
+            });
+            break;
+          default:
+            log.info('Platform not supported.');
             break;
         }
-      }).then(() => {
-        log.info(rep, id);
+        storeId(id);
+        return id;
+      }).then(id => {
+        // log.info(rep, id);
         return id;
       });
     }
@@ -152,53 +184,72 @@ export default class QuickSim extends Component<Props> {
   updateRegion = e => {
     this.setState({ regionISO: e.target.value });
   };
+  updateOutput = e => {
+    this.setState({ output: e.target.value });
+  };
 
   render() {
     const { deleteProfile, selectProfile, profiles } = this.props;
     // log.info(profiles);
-    return (
-      <section id="quick-sim" className="container" data-tid="container">
-        <h2 className="padding-left-20">QuickSim</h2>
-        <button
-          onClick={e => {
-            this.initSim();
-          }}
-          type="button"
-          className="btn btn-lg background-colour-accent font-weight-bold"
-        >
-          Run Sim
-        </button>
-        <input
-          value={this.state.characterName}
-          onChange={e => this.updateCharacterName(e)}
-          placeholder="Character Name"
-          className="form-control"
-        />
-        <input
-          value={this.state.serverName}
-          onChange={e => this.updateServerName(e)}
-          placeholder="Server Name"
-          className="form-control"
-        />
-        <select
-          value={this.state.regionISO}
-          onChange={e => this.updateRegion(e)}
-          className="custom-select"
-        >
-          <option id="region-placeholder" defaultValue disabled>
-            - Region -
-          </option>
-          <option value="EU">EU</option>
-          <option value="US">US</option>
-        </select>
-        <ImportTable
-          deleteProfile={deleteProfile}
-          selectProfile={selectProfile}
-          profiles={this.state.profiles}
-          selectable={true}
-        />
-      </section>
-    );
-    i;
+    if (this.state.toResults === true) {
+      return <Redirect to="/sim/results" />;
+    }
+    if (!this.state.running) {
+      return (
+        <section id="quick-sim" className="container" data-tid="container">
+          <h2 className="padding-left-20">QuickSim</h2>
+          <button
+            onClick={e => {
+              this.initSim();
+            }}
+            type="button"
+            className="btn btn-lg background-colour-accent font-weight-bold"
+          >
+            Run Sim
+          </button>
+          <input
+            value={this.state.characterName}
+            onChange={e => this.updateCharacterName(e)}
+            placeholder="Character Name"
+            className="form-control"
+          />
+          <input
+            value={this.state.serverName}
+            onChange={e => this.updateServerName(e)}
+            placeholder="Server Name"
+            className="form-control"
+          />
+          <select
+            value={this.state.regionISO}
+            onChange={e => this.updateRegion(e)}
+            className="custom-select"
+          >
+            <option id="region-placeholder" defaultValue disabled>
+              - Region -
+            </option>
+            <option value="EU">EU</option>
+            <option value="US">US</option>
+          </select>
+          <ImportTable
+            deleteProfile={deleteProfile}
+            selectProfile={selectProfile}
+            profiles={this.state.profiles}
+            selectable={true}
+          />
+        </section>
+      );
+    } else {
+      return (
+        <section id="quick-sim" className="container" data-tid="container">
+          <h2 className="padding-left-20">Simulating</h2>
+          <textarea
+            value={this.state.output}
+            onChange={e => this.updateOutput(e)}
+            className="form-control dark-textarea"
+            rows="10"
+          />
+        </section>
+      );
+    }
   }
 }
