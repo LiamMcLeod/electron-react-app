@@ -5,13 +5,14 @@ import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
 import * as profileActions from '../actions/profile';
-import type { profileStateType } from '../reducers/types';
+import * as fileActions from '../actions/file';
+import type { fileStateType, profileStateType } from '../reducers/types';
 
 const history = createHashHistory();
 
 const rootReducer = createRootReducer(history);
 
-const configureStore = (initialState?: profileStateType) => {
+const configureStore = (initialState?: profileStateType, fileStateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -37,6 +38,7 @@ const configureStore = (initialState?: profileStateType) => {
   // Redux DevTools Configuration
   const actionCreators = {
     ...profileActions,
+    ...fileActions,
     ...routerActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

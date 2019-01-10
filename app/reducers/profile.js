@@ -6,9 +6,8 @@ import {
   POST_PROFILE,
   DELETE_PROFILE,
   SELECT_PROFILE,
-  STORE_ID,
-  GET_ID,
-  SET_PROFILE
+  SET_PROFILE,
+  STORE_ID
 } from '../actions/profile';
 import type { Action } from './types';
 
@@ -16,6 +15,8 @@ import ls from 'local-storage';
 
 import log from 'electron-log';
 import { id } from 'postcss-selector-parser';
+
+//TODO MOVE PROFILES INTO SIMC FILES
 
 export default function profile(state = [], action) {
   switch (action.type) {
@@ -80,37 +81,14 @@ export default function profile(state = [], action) {
     case SET_PROFILE:
       return state;
     case STORE_ID:
-      log.info('Storing: ' + action.id);
-      return action.id;
-    case GET_ID:
+      /**
+       * This must be here despite the fact that it pertains to file
+       *  as it is mounted to QuickSim and is seemingly the only way
+       *  to effectively communicate between two stores
+       */
+      // log.info('Storing: ' + action.id);
       return action.id;
     default:
       return state;
   }
 }
-
-// Example: https://codesandbox.io/s/github/reduxjs/redux/tree/master/examples/todos
-//
-// const todos = (state = [], action) => {
-//   switch (action.type) {
-//     case 'ADD_TODO':
-//       return [
-//         ...state,
-//         {
-//           id: action.id,
-//           text: action.text,
-//           completed: false
-//         }
-//       ]
-//     case 'TOGGLE_TODO':
-//       return state.map(todo =>
-//         (todo.id === action.id)
-//           ? {...todo, completed: !todo.completed}
-//           : todo
-//       )
-//     default:
-//       return state
-//   }
-// }
-
-// export default todos

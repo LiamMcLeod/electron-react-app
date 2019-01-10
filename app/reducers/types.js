@@ -5,8 +5,11 @@ export type profileStateType = {
   +profiles: Array,
   +profile: Object
   +selected: String
-  +id: String
 };
+
+export type fileStateType = {
+    +id: String
+}
 
 export type Action = {
   +type: string

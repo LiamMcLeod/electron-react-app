@@ -3,21 +3,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //Components
 import Result from '../components/Result';
-//Redux: Profile
-import * as ProfileActions from '../actions/profile';
+//Redux: File
+import * as fileActions from '../actions/file';
 
 function mapStateToProps(state) {
-  // console.log(state);
-  // console.log(state);
+  if (!state.file.length) {
+    state.file = '';
+  }
   return {
     //* 1. From Types
     state: state,
-    id: state.profiles
+    id: state.file
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ProfileActions, dispatch);
+  return bindActionCreators(fileActions, dispatch);
 }
 
 //* This is presumably why it's innaccessible pre-Render()
