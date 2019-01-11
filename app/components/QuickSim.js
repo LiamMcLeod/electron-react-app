@@ -65,17 +65,6 @@ export default class QuickSim extends Component<Props> {
       };
       this.setState({ running: true });
       this.runSimAsyc(armory);
-      // var runSim = new Promise(resolve => {
-      //   var id = this.runSim(armory);
-      //   // while (!id) {}
-      //   resolve(id);
-      // }).then(id => {
-      //   if (fs.existsSync(__dirname + `\\tmp\\${id}.json`)) {
-      //     log.info('File Found.');
-      //   } else {
-      //     log.info('Not found');
-      //   }
-      // });
     } else {
       if (selected && selected.key) {
         // log.info(selected.key);
@@ -83,44 +72,6 @@ export default class QuickSim extends Component<Props> {
       }
     }
   };
-
-  // runSim = selected => {
-  //   var id = generateId();
-  //   if (selected.character) {
-  //     switch (process.platform) {
-  //       case 'win32':
-  //         log.info('Detected Windows OS');
-  //         log.info('Running Simulation');
-  //         const simc = spawn('./simc/simc.exe', [
-  //           'armory=' +
-  //             `${selected.region},${selected.server},${selected.character}`,
-  //           'json2=' + __dirname + `\\tmp\\${id}.json`,
-  //           'iterations=10000'
-  //           // 'calculate_scale_factors=0',
-  //           // 'output=' + __dirname + `\\tmp\\${id}.txt`,
-  //           // 'xml=' + __dirname + `\\tmp\\${id}.xml`,
-  //           // 'html=' + __dirname + `\\tmp\\${id}.html`
-  //         ]);
-  //         simc.stdout.on('data', data => {
-  //           this.setState({ output: this.state.output + '\n' + data });
-  //           log.info(`stdout: ${data}`);
-  //         });
-  //         simc.stderr.on('data', data => {
-  //           this.setState({ output: data });
-  //           log.info(`stderr: ${data}`);
-  //         });
-  //         simc.on('close', id => {
-  //           this.setState({ toResults: true });
-  //           return id;
-  //         });
-  //         break;
-  //       default:
-  //         log.info('Platform not supported.');
-  //         break;
-  //     }
-  //     return id;
-  //   }
-  // };
 
   runSimAsyc = selected => {
     const { storeId } = this.props;

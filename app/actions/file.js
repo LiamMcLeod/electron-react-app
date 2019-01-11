@@ -6,6 +6,7 @@ import log from 'electron-log';
 
 export const STORE_ID = 'Stores a file ID to later display results for';
 export const GET_ID = 'Gets a file ID to display results for';
+export const GET_FILE = 'Gets a file using ID to display results for';
 
 var fileId = '';
 
@@ -21,5 +22,12 @@ export const getId = () => {
   return {
     id: fileId,
     type: GET_ID
+  };
+};
+
+export const getFile = id => {
+  return {
+    id: id,
+    type: GET_FILE
   };
 };

@@ -54,6 +54,21 @@ export default class Home extends Component<Props> {
             </div>
           </div>
           {/** OTHER */}
+          <div className="col-6">
+            <div className={styles.itemBounds} data-tid="container">
+              <Link to={routes.RESULTS} className="item-link" href="#">
+                <div className="home-item">
+                  <div className="item-image">
+                    <Boot />
+                  </div>
+                  <div className="item-text">
+                    <h2 className="heading">Results</h2>
+                    <p className="description">Check historic results</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
         {/*! <Link to={routes.COUNTER}>to Counter</Link> */}
       </section>
