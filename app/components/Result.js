@@ -13,8 +13,11 @@ import log from 'electron-log';
 type Props = {
   getId: () => void,
   getFile: () => void,
-  getDir: () => void,
-  id: String
+  // getDir: () => void,
+  getDirAsync: () => void,
+  id: String,
+  result: Object,
+  results: Array
 };
 
 export default class Result extends Component<Props> {
@@ -22,26 +25,12 @@ export default class Result extends Component<Props> {
     super(Props);
     this.state = {
       id: '',
-      result: '',
-      results: '',
+      result: {},
+      results: [],
       readFlag: false
     };
   }
   props: Props;
-
-  // readDir = () => {
-  //   const path = __dirname + '\\tmp\\sims\\';
-  //   var files = new Promise(resolve => {
-  //     fs.readdir(path, (err, files) => {
-  //       // log.info(files);
-  //       resolve(files);
-  //     });
-  //   }).then(files => {
-  //     this.setState({ results: files });
-  //     return files;
-  //   });
-  //   return files;
-  // };
 
   readFile = id => {
     const path = __dirname + '\\tmp\\sims\\' + id;
@@ -74,9 +63,6 @@ export default class Result extends Component<Props> {
     const { getId, getFile, getDirAsync } = this.props;
     getDirAsync();
     //TODO THIS IS A QUICK AND DIRTY TEMPORARY FIX. LATER I WILL ADD A RESULTS PAGE WITH ALL CATALOGUED RESULTS
-    // const { getId, getFile, getDirAsync } = this.props;
-    // getDirAsync();
-    // this.readDir();
     // getId();
     // if (!this.state.id) {
     //   var sims = [];
@@ -92,48 +78,24 @@ export default class Result extends Component<Props> {
     //     }
     //   }
     // }
-    //TODO UNCOMMENT IF FUCK UP
-    // if (!this.state.id) {
-    // var sims = [];
-    // var sim = '';
-    // if (ls.get('sims')) {
-    // sims = ls.get('sims');
-    // sim = sims.pop();
-    //
-    // this.setState({ id: sim });
-    // if (!this.state.readFlag) {
-    // this.setState({ readFlag: true });
-    // this.readFile(sim);
-    // }
-    // }
-    // } else {
-    // var sim = this.state.id;
-    // if (ls.get('sims')) {
-    // sims = ls.get('sims');
-    // sims.push(sim);
-    // } else {
-    // sims = [sim];
-    // }
-    //
-    // ls.set('sims', sims);
-    // if (!this.state.readFlag) {
-    // this.setState({ readFlag: true });
-    // this.readFile(this.state.id);
-    // }
-    // }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    // log.info(nextProps);
+    log.info(nextProps);
+    // log.info(nextProps.results);
     if (nextProps.id) {
       return { id: nextProps.id };
     }
-    if (nextProps.file) {
-      return { result: nextProps.file };
+    if (nextProps.result) {
+      return { result: nextProps.result };
     }
-    if (nextProps.files) {
-      return { results: nextProps.files };
-    } else return null;
+    //! IF NOT BEING MET
+    if (nextProps.results) {
+      // TODO PROP ISN'T PARSING TO STATE
+      log.info(nextProps.results);
+      return { results: nextProps.results };
+    }
+    return null;
   }
 
   render() {
