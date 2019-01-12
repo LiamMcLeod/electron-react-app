@@ -7,13 +7,16 @@ import Result from '../components/Result';
 import * as fileActions from '../actions/file';
 
 function mapStateToProps(state) {
-  if (!state.file.length) {
-    state.file = '';
-  }
+  // console.log(state);
+  // if (!state.id) {
+  // state.id = '';
+  // }
   return {
     //* 1. From Types
-    state: state,
-    id: state.file
+    // state: state,
+    id: state.file.id,
+    result: state.file.file,
+    results: state.file.files
   };
 }
 

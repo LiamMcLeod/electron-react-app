@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import routes from '../constants/routes';
 
-import generateId from '../modules/GenerateId';
-
-var spawn = require('child_process').spawn;
 const fs = require('fs');
+var spawn = require('child_process').spawn;
+
+import generateId from '../modules/GenerateId';
 
 import log from 'electron-log';
 
@@ -100,10 +100,8 @@ export default class QuickSim extends Component<Props> {
               // log.info(`stdout: ${data}`);
             });
             simc.stderr.on('data', data => {
-              this.setState({
-                output: data + '\n' + this.state.output
-              });
-              // log.info(`stderr: ${data}`);
+              log.info(`stderr: ${data}`);
+              throw data;
             });
             simc.on('close', id => {
               this.setState({ toResults: true });

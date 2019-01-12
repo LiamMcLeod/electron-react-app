@@ -1,5 +1,8 @@
 // @flow
 import type { GetState, Dispatch } from '../reducers/types';
+
+import fs from 'fs';
+
 import generateId from '../modules/GenerateId';
 
 import log from 'electron-log';
@@ -7,6 +10,7 @@ import log from 'electron-log';
 export const STORE_ID = 'Stores a file ID to later display results for';
 export const GET_ID = 'Gets a file ID to display results for';
 export const GET_FILE = 'Gets a file using ID to display results for';
+export const GET_DIR = 'Gets a sims dir to get results to display';
 
 var fileId = '';
 
@@ -29,5 +33,20 @@ export const getFile = id => {
   return {
     id: id,
     type: GET_FILE
+  };
+};
+export const getDir = files => {
+  return {
+    files: files,
+    type: GET_DIR
+  };
+};
+
+export const getDirAsync = () => {
+  return (dispatch: Dispatch) => {
+    const path = __dirname + '\\tmp\\sims\\';
+    fs.readdir(path, (err, files) => {
+      dispatch(getDir(files));
+    });
   };
 };
