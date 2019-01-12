@@ -12,7 +12,7 @@ type Props = {
   selectProfile: () => void
 };
 
-export default class ImportTable extends Component<Props> {
+export default class ImportRow extends Component<Props> {
   props: Props;
   constructor(Props) {
     super(Props);

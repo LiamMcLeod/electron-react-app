@@ -6,6 +6,8 @@ import routes from '../constants/routes';
 import fs from 'fs';
 import ls from 'local-storage';
 
+import ResultsTable from './modules/ResultsTable';
+
 import generateId from '../modules/GenerateId';
 
 import log from 'electron-log';
@@ -20,6 +22,8 @@ type Props = {
   results: Array
 };
 
+var firstPass = true;
+
 export default class Result extends Component<Props> {
   constructor(Props) {
     super(Props);
@@ -27,7 +31,8 @@ export default class Result extends Component<Props> {
       id: '',
       result: {},
       results: [],
-      readFlag: false
+      readFlag: false,
+      firstPass: true
     };
   }
   props: Props;
@@ -81,21 +86,23 @@ export default class Result extends Component<Props> {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    log.info(nextProps);
-    // log.info(nextProps.results);
-    if (nextProps.id) {
-      return { id: nextProps.id };
+    // log.info(nextProps);
+    if (firstPass) {
+      firstPass = false;
+      if (nextProps.id) {
+        return { id: nextProps.id };
+      }
+      if (nextProps.result) {
+        return { result: nextProps.result };
+      }
+      return null;
+    } else {
+      if (nextProps.results) {
+        // log.info(nextProps.results);
+        return { results: nextProps.results };
+      }
+      return null;
     }
-    if (nextProps.result) {
-      return { result: nextProps.result };
-    }
-    //! IF NOT BEING MET
-    if (nextProps.results) {
-      // TODO PROP ISN'T PARSING TO STATE
-      log.info(nextProps.results);
-      return { results: nextProps.results };
-    }
-    return null;
   }
 
   render() {
@@ -106,6 +113,7 @@ export default class Result extends Component<Props> {
       <section id="sim-results" className="container" data-tid="container">
         <h2 className="padding-left-20">Results</h2>
         {/* {this.state.id} */}
+        <ResultsTable results={this.state.results} selectable={true} />
         <button className="btn background-colour-accent font-weight-bold">
           Export
         </button>

@@ -11,6 +11,7 @@ export const STORE_ID = 'Stores a file ID to later display results for';
 export const GET_ID = 'Gets a file ID to display results for';
 export const GET_FILE = 'Gets a file using ID to display results for';
 export const GET_DIR = 'Gets a sims dir to get results to display';
+export const SELECT_FILE = 'Selects a result for displaying';
 
 var fileId = '';
 
@@ -35,6 +36,15 @@ export const getFile = id => {
     type: GET_FILE
   };
 };
+
+export const selectFile = (id, results) => {
+  return {
+    id: id,
+    files: files,
+    type: SELECT_FILE
+  };
+};
+
 export const getDir = files => {
   return {
     files: files,
