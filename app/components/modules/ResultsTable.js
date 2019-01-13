@@ -34,6 +34,7 @@ export default class ResultsTable extends Component<Props> {
   selectRow = id => {
     const { selectFile } = this.props;
     selectFile(id, this.state.results);
+    this.props.setSelected(id);
     this.setState({ selected: id });
   };
 

@@ -38,6 +38,10 @@ export default class Result extends Component<Props> {
   }
   props: Props;
 
+  setSelected = selected => {
+    this.setState({ id: selected });
+  };
+
   componentDidMount() {
     const { getId, getFile, getDirAsync } = this.props;
     getDirAsync();
@@ -80,7 +84,7 @@ export default class Result extends Component<Props> {
   }
 
   render() {
-    const { getId, getFile, getDir } = this.props;
+    const { getId, getFile, getDir, selectFile } = this.props;
     // log.info(this.state.results);
 
     return (
@@ -90,7 +94,8 @@ export default class Result extends Component<Props> {
         <ResultsTable
           results={this.state.results}
           selectable={true}
-          selectFile={this.props.selectFile}
+          selectFile={selectFile}
+          setSelected={this.setSelected}
         />
         <button className="btn background-colour-accent font-weight-bold">
           Export
