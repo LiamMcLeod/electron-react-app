@@ -30,9 +30,10 @@ export const getId = () => {
   };
 };
 
-export const getFile = id => {
+export const getFile = (id, file) => {
   return {
     id: id,
+    file: file,
     type: GET_FILE
   };
 };
@@ -49,6 +50,28 @@ export const getDir = files => {
   return {
     files: files,
     type: GET_DIR
+  };
+};
+
+export const getFileAsync = id => {
+  return (dispatch: Dispatch) => {
+    var path = __dirname + '\\tmp\\sims\\' + id;
+    var readStream = fs.createReadStream(path);
+    var file = '';
+    readStream
+      .on('open', () => {
+        //
+      })
+      .on('data', data => {
+        file = file += data;
+      })
+      .on('error', err => {
+        throw err;
+      })
+      .on('end', () => {
+        // action.cb();
+        dispatch(getFile(id, file));
+      });
   };
 };
 

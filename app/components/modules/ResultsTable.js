@@ -12,7 +12,6 @@ import log from 'electron-log';
 
 type Props = {};
 export default class ResultsTable extends Component<Props> {
-  // TODO Each child in an array or iterator should have a unique "key" prop.
   constructor(Props) {
     super(Props);
     this.state = { selectable: false, selected: '' };

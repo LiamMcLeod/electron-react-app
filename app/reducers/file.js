@@ -16,29 +16,7 @@ export default function file(state = [], action) {
     case GET_ID:
       return action.id;
     case GET_FILE:
-      var results = '';
-      var path = __dirname + '\\tmp\\sims\\' + action.id;
-      var file = new Promise(resolve => {
-        var readStream = fs.createReadStream(path);
-        readStream
-          .on('open', () => {
-            //pipe to result
-            // log.info('Open');
-            // readStream.pipe(result);
-          })
-          .on('data', data => {
-            // log.info('Chunk: ' + data);
-            file = data += data;
-          })
-          .on('error', err => {
-            throw err;
-          })
-          .on('end', () => {
-            // log.info(results);
-            resolve(file);
-          });
-      });
-      return { id: action.id, file: file };
+      return { id: action.id, file: action.file };
     case GET_DIR:
       return { id: action.id, file: {}, files: action.files };
     case SELECT_FILE:

@@ -7,6 +7,7 @@ import fs from 'fs';
 import ls from 'local-storage';
 
 import ResultsTable from './modules/ResultsTable';
+import CurrentResult from './modules/CurrentResult';
 
 import generateId from '../modules/GenerateId';
 
@@ -14,10 +15,11 @@ import log from 'electron-log';
 
 type Props = {
   getId: () => void,
-  getFile: () => void,
   selectFile: () => void,
+  // getFile: () => void,
   // getDir: () => void,
   getDirAsync: () => void,
+  getFileAsync: () => void,
   id: String,
   result: Object,
   results: Array
@@ -33,19 +35,23 @@ export default class Result extends Component<Props> {
       result: {},
       results: [],
       readFlag: false,
-      firstPass: true
+      showResult: false
     };
   }
   props: Props;
 
   setSelected = selected => {
-    const { getFile } = this.props;
-    getFile(selected);
-    // this.setState({ id: selected });
+    const { getFileAsync } = this.props;
+    getFileAsync(selected);
+    this.setState({ showResult: true });
+    this.setState({ id: selected });
+    // getFileAsync(selected, () => {
+    //   this.setState({ id: selected });
+    // })
   };
 
   componentDidMount() {
-    const { getId, getFile, getDirAsync } = this.props;
+    const { getDirAsync } = this.props;
     getDirAsync();
     //TODO THIS IS A QUICK AND DIRTY TEMPORARY FIX. LATER I WILL ADD A RESULTS PAGE WITH ALL CATALOGUED RESULTS
     // getId();
@@ -67,16 +73,16 @@ export default class Result extends Component<Props> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     // log.info(nextProps);
-    // if (nextProps.id && nextProps.result && nextProps.results) {
-    //   return {
-    //     id: nextProps.id,
-    //     result: nextProps.result,
-    //     results: nextProps.results
-    //   };
-    // }
-    // if (nextProps.id && nextProps.result) {
-    //   return { id: nextProps.id, result: nextProps.result };
-    // }
+    if (nextProps.id && nextProps.result && nextProps.results) {
+      return {
+        id: nextProps.id,
+        result: nextProps.result,
+        results: nextProps.results
+      };
+    }
+    if (nextProps.id && nextProps.result) {
+      return { id: nextProps.id, result: nextProps.result };
+    }
     if (firstPass) {
       firstPass = false;
       if (nextProps.id) {
@@ -93,43 +99,28 @@ export default class Result extends Component<Props> {
       }
       return null;
     }
+    return null;
   }
 
   render() {
-    const { getId, getFile, getDir, selectFile } = this.props;
+    const { getId, getDir, selectFile } = this.props;
     // log.info(this.state.results);
-    if (!this.state.id) {
-      return (
-        <section id="sim-results" className="container" data-tid="container">
-          <h2 className="padding-left-20">Results</h2>
-          {/* {this.state.id} */}
-          <ResultsTable
-            results={this.state.results}
-            selectable={true}
-            selectFile={selectFile}
-            setSelected={this.setSelected}
-          />
-          <button className="btn background-colour-accent font-weight-bold">
-            Export
-          </button>
-        </section>
-      );
-    } else {
-      return (
-        <section id="sim-results" className="container" data-tid="container">
-          <h2 className="padding-left-20">Results</h2>
-          {this.state.id}
-          <ResultsTable
-            results={this.state.results}
-            selectable={true}
-            selectFile={selectFile}
-            setSelected={this.setSelected}
-          />
-          <button className="btn background-colour-accent font-weight-bold">
-            Export
-          </button>
-        </section>
-      );
-    }
+    return (
+      <section id="sim-results" className="container" data-tid="container">
+        <h2 className="padding-left-20">Results</h2>
+        {this.state.showResult ? (
+          <CurrentResult id={this.state.id} jsonString={this.state.result} />
+        ) : null}
+        <ResultsTable
+          results={this.state.results}
+          selectable={true}
+          selectFile={selectFile}
+          setSelected={this.setSelected}
+        />
+        <button className="btn background-colour-accent font-weight-bold">
+          Export
+        </button>
+      </section>
+    );
   }
 }
