@@ -13,21 +13,19 @@ export default class CurrentResult extends Component<Props> {
   constructor(Props) {
     super(Props);
     this.state = {
-      //todo objectify jsonString
       json: {}
     };
   }
 
-  componentDidMount() {
-    // var x = JSON.parse(this.props.jsonString);
-  }
+  componentDidMount() {}
 
   props: Props;
   render() {
     return (
       <section id="current-result">
         {/*  */}
-        {this.props.id}
+        {/* {this.props.id} */}
+        {Math.round(this.props.json.sim.players[0].collected_data.dps.mean)}
         {/* {this.state.json} */}
       </section>
     );

@@ -109,7 +109,7 @@ export default class Result extends Component<Props> {
       <section id="sim-results" className="container" data-tid="container">
         <h2 className="padding-left-20">Results</h2>
         {this.state.showResult ? (
-          <CurrentResult id={this.state.id} jsonString={this.state.result} />
+          <CurrentResult id={this.state.id} json={this.state.result} />
         ) : null}
         <ResultsTable
           results={this.state.results}
