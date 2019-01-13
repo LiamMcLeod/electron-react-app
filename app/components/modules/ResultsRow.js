@@ -57,10 +57,10 @@ export default class ResultsRow extends Component<Props> {
           }}
         >
           <td />
-          <td>{this.props.row.id}</td>
-          <td>ROW2</td>
-          <td>ROW3</td>
+          <td>{this.props.row.data.name}</td>
           <td />
+          <td>{/*this.props.row.data.dps */}</td>
+          <td>{this.props.row.data.dateTime}</td>
           <td>
             <a
             // href="#"

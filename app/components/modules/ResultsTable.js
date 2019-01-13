@@ -57,9 +57,9 @@ export default class ResultsTable extends Component<Props> {
         return (
           <ResultsRow
             selectable={this.state.selectable}
-            key={row}
+            key={row.id}
             simC=""
-            row={{ id: row }}
+            row={row}
             refreshRows={this.refreshRows}
             selectRow={this.selectRow}
             getSelectedRow={this.getSelectedRow}
@@ -75,10 +75,11 @@ export default class ResultsTable extends Component<Props> {
         <table className="table table-striped table-dark">
           <thead>
             <tr>
-              <th scope="col" colSpan="2" />
-              <th scope="col">ROW1</th>
-              <th scope="col">ROW2</th>
-              <th scope="col">ROW3</th>
+              <th />
+              <th scope="col">Name</th>
+              <th scope="col" />
+              <th scope="col" />
+              <th scope="col">Date</th>
               <th scope="col" colSpan="2" />
             </tr>
           </thead>
