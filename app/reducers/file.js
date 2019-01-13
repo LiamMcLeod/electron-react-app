@@ -17,7 +17,7 @@ export default function file(state = [], action) {
       return action.id;
     case GET_FILE:
       var results = '';
-      var path = __dirname + '\\tmp\\' + action.id + '.json';
+      var path = __dirname + '\\tmp\\sims\\' + action.id;
       var file = new Promise(resolve => {
         var readStream = fs.createReadStream(path);
         readStream

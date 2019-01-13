@@ -39,7 +39,9 @@ export default class Result extends Component<Props> {
   props: Props;
 
   setSelected = selected => {
-    this.setState({ id: selected });
+    const { getFile } = this.props;
+    getFile(selected);
+    // this.setState({ id: selected });
   };
 
   componentDidMount() {
@@ -65,6 +67,16 @@ export default class Result extends Component<Props> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     // log.info(nextProps);
+    // if (nextProps.id && nextProps.result && nextProps.results) {
+    //   return {
+    //     id: nextProps.id,
+    //     result: nextProps.result,
+    //     results: nextProps.results
+    //   };
+    // }
+    // if (nextProps.id && nextProps.result) {
+    //   return { id: nextProps.id, result: nextProps.result };
+    // }
     if (firstPass) {
       firstPass = false;
       if (nextProps.id) {
@@ -86,21 +98,38 @@ export default class Result extends Component<Props> {
   render() {
     const { getId, getFile, getDir, selectFile } = this.props;
     // log.info(this.state.results);
-
-    return (
-      <section id="sim-results" className="container" data-tid="container">
-        <h2 className="padding-left-20">Results</h2>
-        {/* {this.state.id} */}
-        <ResultsTable
-          results={this.state.results}
-          selectable={true}
-          selectFile={selectFile}
-          setSelected={this.setSelected}
-        />
-        <button className="btn background-colour-accent font-weight-bold">
-          Export
-        </button>
-      </section>
-    );
+    if (!this.state.id) {
+      return (
+        <section id="sim-results" className="container" data-tid="container">
+          <h2 className="padding-left-20">Results</h2>
+          {/* {this.state.id} */}
+          <ResultsTable
+            results={this.state.results}
+            selectable={true}
+            selectFile={selectFile}
+            setSelected={this.setSelected}
+          />
+          <button className="btn background-colour-accent font-weight-bold">
+            Export
+          </button>
+        </section>
+      );
+    } else {
+      return (
+        <section id="sim-results" className="container" data-tid="container">
+          <h2 className="padding-left-20">Results</h2>
+          {this.state.id}
+          <ResultsTable
+            results={this.state.results}
+            selectable={true}
+            selectFile={selectFile}
+            setSelected={this.setSelected}
+          />
+          <button className="btn background-colour-accent font-weight-bold">
+            Export
+          </button>
+        </section>
+      );
+    }
   }
 }
