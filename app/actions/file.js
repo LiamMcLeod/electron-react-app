@@ -37,7 +37,7 @@ export const getFile = id => {
   };
 };
 
-export const selectFile = (id, results) => {
+export const selectFile = (id, files) => {
   return {
     id: id,
     files: files,

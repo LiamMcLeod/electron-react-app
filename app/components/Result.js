@@ -15,6 +15,7 @@ import log from 'electron-log';
 type Props = {
   getId: () => void,
   getFile: () => void,
+  selectFile: () => void,
   // getDir: () => void,
   getDirAsync: () => void,
   id: String,
@@ -36,33 +37,6 @@ export default class Result extends Component<Props> {
     };
   }
   props: Props;
-
-  readFile = id => {
-    const path = __dirname + '\\tmp\\sims\\' + id;
-    var results = '';
-    var file = new Promise(resolve => {
-      var readStream = fs.createReadStream(path);
-      readStream
-        .on('open', () => {
-          //pipe to result
-          // log.info('Open');
-          // readStream.pipe(result);
-        })
-        .on('data', data => {
-          // log.info('Chunk: ' + data);
-          file = data += data;
-        })
-        .on('error', err => {
-          throw err;
-        })
-        .on('end', () => {
-          // log.info(results);
-          resolve(file);
-        });
-    });
-    this.setState({ result: file });
-    return file;
-  };
 
   componentDidMount() {
     const { getId, getFile, getDirAsync } = this.props;
@@ -113,7 +87,11 @@ export default class Result extends Component<Props> {
       <section id="sim-results" className="container" data-tid="container">
         <h2 className="padding-left-20">Results</h2>
         {/* {this.state.id} */}
-        <ResultsTable results={this.state.results} selectable={true} />
+        <ResultsTable
+          results={this.state.results}
+          selectable={true}
+          selectFile={this.props.selectFile}
+        />
         <button className="btn background-colour-accent font-weight-bold">
           Export
         </button>

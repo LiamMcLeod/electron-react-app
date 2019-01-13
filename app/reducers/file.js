@@ -40,10 +40,10 @@ export default function file(state = [], action) {
       });
       return { id: action.id, file: file };
     case GET_DIR:
-      return { id: '', file: {}, files: action.files };
+      return { id: action.id, file: {}, files: action.files };
     case SELECT_FILE:
-      i = files.findIndex(o => o.key === action.id);
-      return { id: '', file: profiles[i], files: action.files };
+      var i = action.files.findIndex(o => o.key === action.id);
+      return { id: '', file: action.files[i], files: action.files };
     default:
       return state;
   }

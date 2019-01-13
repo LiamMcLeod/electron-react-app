@@ -8,8 +8,8 @@ import log from 'electron-log';
 
 type Props = {
   //
-  deleteProfile: () => void,
-  selectProfile: () => void
+  deleteFile: () => void,
+  selectFile: () => void
 };
 
 export default class ResultsRow extends Component<Props> {
@@ -20,23 +20,18 @@ export default class ResultsRow extends Component<Props> {
       row: Props.row,
       renderRow: true,
       selectable: Props.selectable,
-      selected: ''
+      selected: {}
     };
   }
-
-  getKey = () => {
-    return this.props.row.key;
-  };
 
   deleteRow = (e, id) => {
     this.setState({ renderRow: false });
     e.preventDefault();
-    const { deleteProfile } = this.props;
-    deleteProfile(e, id);
+    // const { deleteProfile } = this.props;
+    // deleteProfile(e, id);
   };
 
   selectRow = (e, id) => {
-    const { selectFile } = this.props;
     if (this.state.selectable) {
       this.setState({ selected: id });
       // log.info('Selected: ' + id);
@@ -51,7 +46,7 @@ export default class ResultsRow extends Component<Props> {
         <tr
           onClick={e => {
             this.state.selectable
-              ? this.selectRow(e, this.state.row.key)
+              ? this.selectRow(e, this.state.row.id)
               : this.selectRow(e); //  & (this.state.row.key !== this.state.selected)
           }}
           style={{
@@ -62,7 +57,7 @@ export default class ResultsRow extends Component<Props> {
           }}
         >
           <td />
-          <td>{this.props.row}</td>
+          <td>{this.props.row.id}</td>
           <td>ROW2</td>
           <td>ROW3</td>
           <td />

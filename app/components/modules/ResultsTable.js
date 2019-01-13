@@ -59,7 +59,7 @@ export default class ResultsTable extends Component<Props> {
             selectable={this.state.selectable}
             key={row}
             simC=""
-            row={row}
+            row={{ id: row }}
             refreshRows={this.refreshRows}
             selectRow={this.selectRow}
             getSelectedRow={this.getSelectedRow}
