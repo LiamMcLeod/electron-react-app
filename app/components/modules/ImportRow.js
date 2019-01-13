@@ -6,9 +6,13 @@ import ls from 'local-storage';
 
 import log from 'electron-log';
 
-type Props = {};
+type Props = {
+  //
+  deleteProfile: () => void,
+  selectProfile: () => void
+};
 
-export default class ImportTable extends Component<Props> {
+export default class ImportRow extends Component<Props> {
   props: Props;
   constructor(Props) {
     super(Props);
@@ -60,24 +64,19 @@ export default class ImportTable extends Component<Props> {
   deleteRow = (e, id) => {
     this.setState({ renderRow: false });
     e.preventDefault();
-    // log.info('id:' + id);
-
-    var profiles = [];
-    if (ls.get('profiles')) {
-      profiles = ls.get('profiles');
-    }
-
-    var i = profiles.findIndex(o => o.key === id);
-    if (i !== -1) {
-      profiles.splice(i, 1);
-    }
-    log.info(profiles);
-    ls.set('profiles', profiles);
+    const { deleteProfile } = this.props;
+    deleteProfile(e, id);
   };
 
-  static getDerivedStateFromProps(Props) {
-    return null;
-  }
+  selectRow = (e, id) => {
+    // const { selectProfile } = this.props;
+    if (this.state.selectable) {
+      this.setState({ selected: id });
+      // log.info('Selected: ' + id);
+      this.props.selectRow(id);
+      return null;
+    }
+  };
 
   render() {
     if (this.state.renderRow) {
@@ -85,11 +84,14 @@ export default class ImportTable extends Component<Props> {
         <tr
           onClick={e => {
             this.state.selectable
-              ? this.props.selectRow(e, this.state.row.key)
-              : this.props.selectRow(e); //  & (this.state.row.key !== this.state.selected)
+              ? this.selectRow(e, this.state.row.key)
+              : this.selectRow(e); //  & (this.state.row.key !== this.state.selected)
           }}
           style={{
-            background: this.state.selected ? 'rgba(255, 255, 255, 0.5)' : null
+            background:
+              this.state.selected === this.props.getSelectedRow()
+                ? 'rgba(255, 255, 255, 0.5)'
+                : null
           }}
         >
           <td>

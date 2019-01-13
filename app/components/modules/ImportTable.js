@@ -8,6 +8,7 @@ import ls from 'local-storage';
 import ImportRow from './ImportRow';
 
 import log from 'electron-log';
+import { selectProfile } from '../../actions/profile';
 
 type Props = {};
 export default class ImportTable extends Component<Props> {
@@ -64,16 +65,14 @@ export default class ImportTable extends Component<Props> {
     return ignore;
   };
 
-  selectRow = (e, id) => {
-    // console.log(this);
-    if (this.state.selectable) {
-      // this.props.refreshRows(this.state.decoded.key);
-      this.setState({ selected: id });
-      log.info('Selected: ' + this.state.selected);
+  selectRow = id => {
+    const { selectProfile } = this.props;
+    selectProfile(id);
+    this.setState({ selected: id });
+  };
 
-      //TODO ADJUST STYLE
-      return null;
-    }
+  getSelectedRow = () => {
+    return this.state.selected;
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -88,9 +87,10 @@ export default class ImportTable extends Component<Props> {
 
   render() {
     // console.log(this.state.profiles);
+    var { deleteProfile } = this.props;
     if (this.state.profiles) {
       var rows = this.state.profiles.map((row, i) => {
-        // TODO FIX DELETE ROW / ADD ACTION TO REDUX
+        // TODO add DELETE row ACTION TO REDUX
         // log.info(row.string);
         return (
           <ImportRow
@@ -100,6 +100,8 @@ export default class ImportTable extends Component<Props> {
             row={row}
             refreshRows={this.refreshRows}
             selectRow={this.selectRow}
+            getSelectedRow={this.getSelectedRow}
+            deleteProfile={deleteProfile}
           />
         );
       });

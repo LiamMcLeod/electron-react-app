@@ -10,10 +10,11 @@ import ls from 'local-storage';
 import ImportTable from './modules/ImportTable.js';
 
 type Props = {
-  getProfiles: () => void,
+  getProfile: () => void,
   getAllProfiles: () => void,
-  postProfiles: () => void,
-  setProfiles: () => void,
+  postProfile: () => void,
+  setProfile: () => void,
+  deleteProfile: () => void,
   profiles: Array
 };
 
@@ -43,7 +44,7 @@ export default class Import extends Component<Props> {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.profiles) {
       return { profiles: nextProps.profiles };
-    }
+    } else return null;
   }
   componentDidUpdate(prevProps, prevState) {
     //EXAMPLE:
@@ -56,10 +57,12 @@ export default class Import extends Component<Props> {
 
   render() {
     const {
-      getProfiles,
+      getProfile,
       getAllProfiles,
-      postProfiles,
-      setProfiles,
+      postProfile,
+      deleteProfile,
+      selectProfile,
+      setProfile,
       profiles
     } = this.props;
     // log.info(profiles);
@@ -76,7 +79,7 @@ export default class Import extends Component<Props> {
           />
           <button
             onClick={e => {
-              postProfiles(e, this.state.importString);
+              postProfile(e, this.state.importString);
               this.setState({ importString: '' });
             }}
             type="button"
@@ -84,12 +87,11 @@ export default class Import extends Component<Props> {
           >
             Import
           </button>
-          {/* </button> <button onClick={e => this.saveImportString(e)} type="button" className="btn btn-lg btn-block background-colour-accent font-weight-bold">
-            Import
-          </button> */}
         </div>
-        <ImportTable profiles={this.state.profiles} />
-        {/* <ImportTable imports={this.state.profiles} /> */}
+        <ImportTable
+          deleteProfile={deleteProfile}
+          profiles={this.state.profiles}
+        />
       </section>
     );
   }

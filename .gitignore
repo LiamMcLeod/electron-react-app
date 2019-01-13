@@ -50,6 +50,6 @@ main.js.map
 .idea
 npm-debug.log.*
 
-tmp
+/tmp
 simc
 .env

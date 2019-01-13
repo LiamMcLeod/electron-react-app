@@ -16,36 +16,36 @@ export default class Home extends Component<Props> {
     return (
       <section
         id="home"
-        className={'' + styles.container + ' container'}
+        className={styles.container + ' container'}
         data-tid="container"
       >
         {/** ROW ONE  */}
-        <div class="row">
-          <div class="col-6">
+        <div className="row">
+          <div className="col-6">
             <div className={styles.itemBounds} data-tid="container">
-              <Link to={routes.IMPORT} class="item-link" href="#">
-                <div class="home-item">
-                  <div class="item-image">
+              <Link to={routes.IMPORT} className="item-link" href="#">
+                <div className="home-item">
+                  <div className="item-image">
                     <Boot />
                   </div>
-                  <div class="item-text">
-                    <h2 class="heading">Import</h2>
-                    <p class="description">Import a Simc output.</p>
+                  <div className="item-text">
+                    <h2 className="heading">Import</h2>
+                    <p className="description">Import a Simc output.</p>
                   </div>
                 </div>
               </Link>
             </div>
           </div>
-          <div class="col-6">
+          <div className="col-6">
             <div className={styles.itemBounds} data-tid="container">
-              <Link to={routes.QUICKSIM} class="item-link" href="#">
-                <div class="home-item">
-                  <div class="item-image">
+              <Link to={routes.QUICKSIM} className="item-link" href="#">
+                <div className="home-item">
+                  <div className="item-image">
                     <Boot />
                   </div>
-                  <div class="item-text">
-                    <h2 class="heading">Quick Sim</h2>
-                    <p class="description">
+                  <div className="item-text">
+                    <h2 className="heading">Quick Sim</h2>
+                    <p className="description">
                       Run a quick sim to get your current DPS.
                     </p>
                   </div>
@@ -54,6 +54,21 @@ export default class Home extends Component<Props> {
             </div>
           </div>
           {/** OTHER */}
+          <div className="col-6">
+            <div className={styles.itemBounds} data-tid="container">
+              <Link to={routes.RESULTS} className="item-link" href="#">
+                <div className="home-item">
+                  <div className="item-image">
+                    <Boot />
+                  </div>
+                  <div className="item-text">
+                    <h2 className="heading">Results</h2>
+                    <p className="description">Check historic results</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
         {/*! <Link to={routes.COUNTER}>to Counter</Link> */}
       </section>
