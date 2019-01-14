@@ -38,8 +38,11 @@ export default function file(state = [], action) {
       }
       return { id: action.id, file: {}, files: files };
     case DELETE_FILE:
-      //TODO FINISH
-      log.info('DELETE: ' + action.id);
+      var path = __dirname + '\\tmp\\sims\\' + action.id;
+      fs.unlink(path, err => {
+        if (err) throw err;
+        // console.log('Deleted: ' + action.id);
+      });
       return { id: '', file: {}, files: action.files };
     case SELECT_FILE:
       var i = action.files.findIndex(o => o.key === action.id);

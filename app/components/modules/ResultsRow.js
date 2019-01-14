@@ -6,11 +6,9 @@ import ls from 'local-storage';
 
 import log from 'electron-log';
 
-type Props = {
-  //
-  // deleteFile: () => void,
-  // selectFile: () => void
-};
+type Props = {};
+
+//TODO REMOVE DELETED FILES FROM ARRAY
 
 export default class ResultsRow extends Component<Props> {
   props: Props;
@@ -31,7 +29,7 @@ export default class ResultsRow extends Component<Props> {
     if (this.state.deleteConfirm === 'DELETE') {
       this.setState({ showDeleteBox: false });
       this.setState({ renderRow: false });
-      this.props.deleteFile(e, id);
+      this.props.deleteFile(id);
     } else {
       this.setState({ showDeleteBox: true });
     }
@@ -83,8 +81,8 @@ export default class ResultsRow extends Component<Props> {
             ) : null}
             <a
               href="#"
-              onClick={e => this.deleteRow(e, this.props.row.key)}
-              id={this.props.row.key}
+              onClick={e => this.deleteRow(e, this.props.row.id)}
+              id={this.props.row.id}
               placeholder="DELETE"
             >
               <i className="fas fa-minus-circle" />

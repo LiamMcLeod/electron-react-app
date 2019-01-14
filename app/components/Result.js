@@ -117,7 +117,7 @@ export default class Result extends Component<Props> {
           selectable={true}
           selectFile={selectFile}
           setSelected={this.setSelected}
-          deleteFile={this.deleteFile}
+          deleteFile={this.props.deleteFile}
         />
       </section>
     );
