@@ -63,6 +63,7 @@ export default class ResultsTable extends Component<Props> {
             refreshRows={this.refreshRows}
             selectRow={this.selectRow}
             getSelectedRow={this.getSelectedRow}
+            deleteFile={this.props.deleteFile}
           />
         );
       });
@@ -78,7 +79,7 @@ export default class ResultsTable extends Component<Props> {
               <th />
               <th scope="col">Name</th>
               <th scope="col" />
-              <th scope="col" />
+              <th scope="col"> Type </th>
               <th scope="col">Date</th>
               <th scope="col" colSpan="2" />
             </tr>
