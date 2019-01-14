@@ -8,8 +8,8 @@ import log from 'electron-log';
 
 type Props = {
   //
-  deleteFile: () => void,
-  selectFile: () => void
+  // deleteFile: () => void,
+  // selectFile: () => void
 };
 
 export default class ResultsRow extends Component<Props> {
@@ -20,15 +20,21 @@ export default class ResultsRow extends Component<Props> {
       row: Props.row,
       renderRow: true,
       selectable: Props.selectable,
-      selected: {}
+      selected: {},
+      showDeleteBox: false,
+      deleteConfirm: 'type DELETE to confirm.'
     };
   }
 
   deleteRow = (e, id) => {
-    this.setState({ renderRow: false });
     e.preventDefault();
-    // const { deleteProfile } = this.props;
-    // deleteProfile(e, id);
+    if (this.state.deleteConfirm === 'DELETE') {
+      this.setState({ showDeleteBox: false });
+      this.setState({ renderRow: false });
+      this.props.deleteFile(e, id);
+    } else {
+      this.setState({ showDeleteBox: true });
+    }
   };
 
   selectRow = (e, id) => {
@@ -38,6 +44,10 @@ export default class ResultsRow extends Component<Props> {
       this.props.selectRow(id);
       return null;
     }
+  };
+
+  deleteBoxChange = e => {
+    this.setState({ deleteConfirm: e.target.value });
   };
 
   render() {
@@ -62,10 +72,20 @@ export default class ResultsRow extends Component<Props> {
           <td> {this.props.row.data.type == 'QS' ? 'Quick Sim' : null} </td>
           <td>{this.props.row.data.dateTime}</td>
           <td>
+            {this.state.showDeleteBox ? (
+              <input
+                className="delete-confirm"
+                onChange={e => {
+                  this.deleteBoxChange(e);
+                }}
+                value={this.state.deleteConfirm}
+              />
+            ) : null}
             <a
-            // href="#"
-            // onClick={e => this.deleteRow(e, this.props.row.key)}
-            // id={this.props.row.key}
+              href="#"
+              onClick={e => this.deleteRow(e, this.props.row.key)}
+              id={this.props.row.key}
+              placeholder="DELETE"
             >
               <i className="fas fa-minus-circle" />
             </a>

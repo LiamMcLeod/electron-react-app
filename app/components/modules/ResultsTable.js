@@ -63,6 +63,7 @@ export default class ResultsTable extends Component<Props> {
             refreshRows={this.refreshRows}
             selectRow={this.selectRow}
             getSelectedRow={this.getSelectedRow}
+            deleteFile={this.deleteFile}
           />
         );
       });

@@ -24,13 +24,21 @@ main textarea#importInput {
 
 //* Result
 
+main #sim-results .delete-confirm {
+  border: 1px solid black;
+  background: $color-input;
+  color: #000;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  margin-right: 15px;
+}
+
 main #current-result {
   box-sizing: border-box;
   padding: 10px 20px;
 }
 
 main #current-result .profile-image {
-  //
   box-sizing: border-box;
   display: flex;
   margin-bottom: 0px;
@@ -81,6 +89,19 @@ main #current-result .sim-type {
 
 main #current-result .info-container {
   box-sizing: border-box;
+}
+
+main #current-result .right-buttons a {
+  color: #000;
+}
+
+main #current-result .button-right {
+  box-sizing: border-box;
+  margin: 0 16px 0 16px;
+}
+
+main #current-result .spacer {
+  width: 10%;
 }
 
 //* Other

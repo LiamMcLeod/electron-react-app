@@ -20,6 +20,7 @@ type Props = {
   // getDir: () => void,
   getDirAsync: () => void,
   getFileAsync: () => void,
+  deleteFile(): () => void,
   id: String,
   result: Object,
   results: Array
@@ -116,6 +117,7 @@ export default class Result extends Component<Props> {
           selectable={true}
           selectFile={selectFile}
           setSelected={this.setSelected}
+          deleteFile={this.deleteFile}
         />
       </section>
     );

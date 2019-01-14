@@ -12,6 +12,7 @@ export const GET_ID = 'Gets a file ID to display results for';
 export const GET_FILE = 'Gets a file using ID to display results for';
 export const GET_DIR = 'Gets a sims dir to get results to display';
 export const SELECT_FILE = 'Selects a result for displaying';
+export const DELETE_FILE = 'Deletes a result displayed result';
 
 var fileId = '';
 
@@ -46,6 +47,14 @@ export const selectFile = (id, files) => {
   };
 };
 
+export const deleteFile = (id, files) => {
+  return {
+    id: id,
+    files: files,
+    type: DELETE_FILE
+  };
+};
+
 export const getDir = files => {
   return {
     files: files,
@@ -56,22 +65,6 @@ export const getDir = files => {
 export const getFileAsync = id => {
   return (dispatch: Dispatch) => {
     var path = __dirname + '\\tmp\\sims\\' + id;
-    // var readStream = fs.createReadStream(path);
-    // var file = '';
-    // readStream
-    //   .on('open', () => {
-    //     //
-    //   })
-    //   .on('data', data => {
-    //     file = file += data;
-    //   })
-    //   .on('error', err => {
-    //     throw err;
-    //   })
-    //   .on('end', () => {
-    //     // action.cb();
-    //     dispatch(getFile(id, file));
-    //   });
     dispatch(getFile(id, JSON.parse(fs.readFileSync(path))));
   };
 };

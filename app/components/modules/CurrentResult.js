@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes';
 
+import fs from 'fs';
+
 import { selectFile } from '../../actions/file';
 
 //* Components
@@ -26,37 +28,139 @@ export default class CurrentResult extends Component<Props> {
     return string;
   };
 
+  exportSim = e => {
+    //TODO FINISH MAYBE EXPORT TO IMAGE TOO??
+    var player = this.props.json.sim.players[0];
+    var css = `
+	body {
+    	font-family: Helvetica, Helvetica Neue, Lato, Arial, sans-serif;
+    	position: relative;
+    	color: #eeeeee;
+    	height: 100vh;
+    	width: 100%;
+    	background-color: #333339;
+		overflow-x: hidden;
+	}
+	main #current-result {
+	  box-sizing: border-box;
+	  padding: 10px 20px;
+	}
+
+	main #current-result .profile-image {
+	  box-sizing: border-box;
+	  display: flex;
+	  margin-bottom: 0px;
+	  padding-left: 10px;
+	  border-left: 5px solid rgb(255, 245, 105);
+	  height: 116px;
+	  width: 265px;
+	}
+
+	main #current .inset-image {
+	  flex: 0 0 auto;
+	  max-width: none;
+	  margin-right: 20px;
+	  margin-left: 0px;
+	}
+	main #current-result .player-name {
+	  box-sizing: border-box;
+	  font-size: 32px;
+	  font-weight: 600;
+	  line-height: 1.25;
+	  margin: 0px;
+	  letter-spacing: 0.2em;
+	}
+
+	main #current-result .player-dps {
+	  color: rgb(255, 187, 51);
+	  box-sizing: border-box;
+	  font-size: 24px;
+	  font-weight: 600;
+	  line-height: 1.25;
+	  margin: 0px;
+	  text-transform: uppercase;
+	  letter-spacing: 0.2em;
+	}
+
+	main #current-result .player-other {
+	  box-sizing: border-box;
+	  font-size: 16px;
+	  margin: 0px;
+	  opacity: 0.875;
+	}
+
+	main #current-result .sim-type {
+	  box-sizing: border-box;
+	  font-size: 16px;
+	  margin: 8px 0 0 0;
+	  opacity: 0.875;
+	}
+
+	main #current-result .info-container {
+	  box-sizing: border-box;
+	  margin-left: 15px;
+	}`;
+
+    var html = `
+	<html>
+		<head>
+			<title> Sim Results </title>
+			<style>
+				${css}
+			</style>
+		</head>
+		<body>
+			<main>
+				<section id="current-result">
+					<div class="flex">
+						<div class="profile-image">
+							<img
+							class="inset-image"
+							src="http://raidbots.com/wowapi/character/eu/kazzak/tetrodotoxin/image/inset"
+							/>
+						<div />
+					</div>
+					<div class="info-container">
+						<h1 class="player-name">${player.name}</h1>
+						<h2 class="player-dps">
+						${Math.round(player.collected_data.dps.mean)}
+						</h2>
+						<p class="player-other">
+						${this.purifyString(player.race) + ' '}
+						${player.specialization}
+						</p>
+						<p class="sim-type">${this.getSimType(this.props.id)}</p>
+					</div>
+				</section>
+			</main>
+		</body>
+	</html>
+	`;
+    fs.writeFile(__dirname + '\\tmp\\output.html', html, 'utf8', err => {
+      if (err) throw err;
+      console.log('DONE!');
+    });
+  };
+
+  getSimType = id => {
+    var prefix = id.charAt(0) + '' + id.charAt(1);
+    switch (prefix) {
+      case 'QS':
+        return 'Quick Sim';
+      case 'GC':
+        return 'Gear Comparison';
+      default:
+        return 'Quick Sim';
+    }
+  };
+
   componentDidMount() {}
 
   render() {
     var player = this.props.json.sim.players[0];
     return (
       <section id="current-result">
-        {/* <div
-          className="card background-colour-box"
-          style={{ width: 18 + 'rem' }}
-        >
-          <div className="card-body">
-            <h5 className="card-title">
-              DPS:
-              {' ' +
-                Math.round(
-                  this.props.json.sim.players[0].collected_data.dps.mean
-                )}
-            </h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <a href="#" className="btn background-colour-accent">
-              Export
-            </a>
-          </div>
-		</div> */}
-
         <div className="flex">
-          {/* // style="box-sizing: border-box; display: flex; flex-wrap: wrap;
-          align-items: flex-start; margin-bottom: 16px;" */}
           <div className="profile-image">
             <img
               className="inset-image"
@@ -76,24 +180,22 @@ export default class CurrentResult extends Component<Props> {
               {' ' /* SPECS */}
               {player.specialization}
             </p>
-            <p className="sim-type">Quick Sim</p>
+            <p className="sim-type">{this.getSimType(this.props.id)}</p>
           </div>
-          <div className="Space" />
-          {/* // style="box-sizing: border-box; display: inline-block; flex: 1 1
-          auto; width: 10px;" */}
-          {/* <div className="Flex" style="box-sizing: border-box; display: flex; flex-flow: column wrap; align-items: flex-end; justify-content: space-between;"> */}
-          {/* <div className="Flex" style="box-sizing: border-box; display: flex;"> */}
-          {/* <div className="Box" style="box-sizing: border-box; margin-right: 16px;"><a href="https://worldofwarcraft.com/en-gb/character/kazzak/tetrodotoxin" target="_blank" rel="noopener noreferrer" title="Tetrodotoxin on WoW Armory"><img src="/images/icon-wow.png" height="36" align="middle" alt=""></a></div> */}
-          {/* <div className="Box" style="box-sizing: border-box; margin-right: 16px;"><a href="https://www.warcraftlogs.com/character/eu/kazzak/tetrodotoxin" target="_blank" rel="noopener noreferrer" title="Tetrodotoxin on Warcraft Logs"><img src="/images/icon-wcl.png" height="36" align="middle" alt=""></a></div> */}
-          {/* <div className="Box" style="box-sizing: border-box;"><a href="https://raider.io/characters/eu/kazzak/tetrodotoxin" target="_blank" rel="noopener noreferrer" title="Tetrodotoxin on Raider.IO"><img src="/images/icon-raiderio.png" height="36" align="middle" alt=""></a></div> */}
-          {/* </div> */}
-          {/* </div> */}
+          <div className="spacer" />
+          <div className="flex right-buttons">
+            <div className="button-right">
+              <a
+                onClick={e => {
+                  this.exportSim(e);
+                }}
+                className="btn background-colour-accent right-button"
+              >
+                Export
+              </a>
+            </div>
+          </div>
         </div>
-
-        {/*  */}
-        {/* {this.props.id} */}
-        {/* {Math.round(this.props.json.sim.players[0].collected_data.dps.mean)} */}
-        {/* {this.state.json} */}
       </section>
     );
   }
