@@ -26,6 +26,9 @@ export default function file(state = [], action) {
           // log.info(file);
           files.push(file);
         });
+        files.sort(function(objA, objB) {
+          return objB.data.timestamp - objA.data.timestamp;
+        });
         // log.info(files);
         //DO STUFF TO CREATE FILES OBJECT MORE FRIENDLY
       }

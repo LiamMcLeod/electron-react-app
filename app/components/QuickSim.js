@@ -83,10 +83,11 @@ export default class QuickSim extends Component<Props> {
           case 'win32':
             log.info('Detected Windows OS');
             log.info('Running Simulation');
+            //! the QS file PREFIX will denote quick sim so that I can use it later to determine that it was a quick sim
             const simc = spawn('./simc/simc.exe', [
               'armory=' +
                 `${selected.region},${selected.server},${selected.character}`,
-              'json2=' + __dirname + `\\tmp\\${id}.json`,
+              'json2=' + __dirname + `\\tmp\\QS${id}.json`,
               'iterations=10000'
               // 'calculate_scale_factors=0',
               // 'output=' + __dirname + `\\tmp\\${id}.txt`,

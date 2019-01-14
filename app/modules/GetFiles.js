@@ -13,11 +13,11 @@ export default function getFileAsync(id, cb) {
 function getFile(id, file) {
   var date = new Date(0);
   date.setUTCSeconds(file.timestamp);
-  // date = date.toLocaleDateString();
   date = date.toLocaleString();
   return {
     id: id,
     data: {
+      type: id.charAt(0) + '' + id.charAt(1),
       name: file.sim.players[0].name,
       dps: Math.round(file.sim.players[0].collected_data.dps.mean),
       timestamp: file.timestamp,

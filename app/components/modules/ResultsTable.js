@@ -78,7 +78,7 @@ export default class ResultsTable extends Component<Props> {
               <th />
               <th scope="col">Name</th>
               <th scope="col" />
-              <th scope="col" />
+              <th scope="col"> Type </th>
               <th scope="col">Date</th>
               <th scope="col" colSpan="2" />
             </tr>

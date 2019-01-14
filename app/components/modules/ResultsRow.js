@@ -58,8 +58,8 @@ export default class ResultsRow extends Component<Props> {
         >
           <td />
           <td>{this.props.row.data.name}</td>
-          <td />
           <td>{/*this.props.row.data.dps */}</td>
+          <td> {this.props.row.data.type == 'QS' ? 'Quick Sim' : null} </td>
           <td>{this.props.row.data.dateTime}</td>
           <td>
             <a

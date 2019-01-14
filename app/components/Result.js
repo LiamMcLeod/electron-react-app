@@ -117,9 +117,6 @@ export default class Result extends Component<Props> {
           selectFile={selectFile}
           setSelected={this.setSelected}
         />
-        <button className="btn background-colour-accent font-weight-bold">
-          Export
-        </button>
       </section>
     );
   }

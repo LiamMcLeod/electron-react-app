@@ -22,6 +22,68 @@ main textarea#importInput {
   font-size: 12px;
 }
 
+//* Result
+
+main #current-result {
+  box-sizing: border-box;
+  padding: 10px 20px;
+}
+
+main #current-result .profile-image {
+  //
+  box-sizing: border-box;
+  display: flex;
+  margin-bottom: 0px;
+  padding-left: 10px;
+  border-left: 5px solid rgb(255, 245, 105);
+  height: 116px;
+  width: 265px;
+}
+
+main #current .inset-image {
+  flex: 0 0 auto;
+  max-width: none;
+  margin-right: 20px;
+  margin-left: 0px;
+}
+main #current-result .player-name {
+  box-sizing: border-box;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0px;
+  letter-spacing: 0.2em;
+}
+
+main #current-result .player-dps {
+  box-sizing: border-box;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+main #current-result .player-other {
+  box-sizing: border-box;
+  font-size: 16px;
+  margin: 0px;
+  opacity: 0.875;
+}
+
+main #current-result .sim-type {
+  box-sizing: border-box;
+  font-size: 16px;
+  margin: 0px;
+  opacity: 0.875;
+}
+
+main #current-result .info-container {
+  box-sizing: border-box;
+}
+
+//* Other
 main textarea.dark-textarea {
   width: 100%;
   border: 1px solid black;
