@@ -38,12 +38,16 @@ main #current-result {
   padding: 10px 20px;
 }
 
+main #current-result #character-info {
+  background: $color-main;
+}
+
 main #current-result .profile-image {
   box-sizing: border-box;
   display: flex;
   margin-bottom: 0px;
   padding-left: 10px;
-  border-left: 5px solid rgb(255, 245, 105);
+  border-left: 5px solid $color-accent;
   height: 116px;
   width: 265px;
 }
@@ -97,7 +101,7 @@ main #current-result .right-buttons a {
 
 main #current-result .button-right {
   box-sizing: border-box;
-  margin: 0 16px 0 16px;
+  margin: 0 0px 0 5px;
 }
 
 main #current-result .spacer {

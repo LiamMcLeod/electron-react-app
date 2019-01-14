@@ -4,6 +4,9 @@ import routes from '../../constants/routes';
 
 import fs from 'fs';
 
+import domToImage from 'dom-to-image';
+import FileSaver from 'file-saver';
+
 import { selectFile } from '../../actions/file';
 
 //* Components
@@ -28,7 +31,16 @@ export default class CurrentResult extends Component<Props> {
     return string;
   };
 
-  exportSim = e => {
+  exportPng = e => {
+    var html = document.getElementById('character-info');
+    var player = this.props.json.sim.players[0];
+    domToImage.toBlob(html).then(blob => {
+      //
+      FileSaver.saveAs(blob, 'output.png');
+    });
+  };
+
+  exportHtml = e => {
     //TODO FINISH MAYBE EXPORT TO IMAGE TOO??
     var player = this.props.json.sim.players[0];
     var css = `
@@ -159,41 +171,51 @@ export default class CurrentResult extends Component<Props> {
   render() {
     var player = this.props.json.sim.players[0];
     return (
-      <section id="current-result">
-        <div className="flex">
-          <div className="profile-image">
-            <img
-              className="inset-image"
-              src="http://raidbots.com/wowapi/character/eu/kazzak/tetrodotoxin/image/inset"
-            />
+      <section id="current-result" className="flex">
+        <div id="character-info">
+          <div className="flex">
+            <div className="profile-image">
+              <img
+                className="inset-image"
+                src="http://raidbots.com/wowapi/character/eu/kazzak/tetrodotoxin/image/inset"
+              />
 
-            <div />
-          </div>
-          <div className="info-container">
-            <h1 className="player-name">{player.name}</h1>
-            <h2 className="player-dps">
-              {Math.round(player.collected_data.dps.mean)}
-            </h2>
-            <p className="player-other">
-              {/* RACES */}
-              {this.purifyString(player.race)}
-              {' ' /* SPECS */}
-              {player.specialization}
-            </p>
-            <p className="sim-type">{this.getSimType(this.props.id)}</p>
-          </div>
-          <div className="spacer" />
-          <div className="flex right-buttons">
-            <div className="button-right">
-              <a
-                onClick={e => {
-                  this.exportSim(e);
-                }}
-                className="btn background-colour-accent right-button"
-              >
-                Export
-              </a>
+              <div />
             </div>
+            <div className="info-container">
+              <h1 className="player-name">{player.name}</h1>
+              <h2 className="player-dps">
+                {Math.round(player.collected_data.dps.mean)}
+              </h2>
+              <p className="player-other">
+                {/* RACES */}
+                {this.purifyString(player.race)}
+                {' ' /* SPECS */}
+                {player.specialization}
+              </p>
+              <p className="sim-type">{this.getSimType(this.props.id)}</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex spacer" />
+        <div className="flex right-buttons">
+          <div className="button-right">
+            <a
+              onClick={e => {
+                this.exportHtml(e);
+              }}
+              className="btn background-colour-accent button-right"
+            >
+              Export HTML
+            </a>
+            <a
+              onClick={e => {
+                this.exportPng(e);
+              }}
+              className="btn background-colour-accent button-right"
+            >
+              Export PNG
+            </a>
           </div>
         </div>
       </section>
