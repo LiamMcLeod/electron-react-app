@@ -26,8 +26,8 @@ export default class QuickSim extends Component<Props> {
     super(Props);
     this.state = {
       profiles: [],
-      characterName: 'Tetrodotoxin',
-      serverName: 'Kazzak',
+      characterName: '',
+      serverName: '',
       regionISO: 'EU', // process: 'quicksim', //!Change //!Change
       running: false,
       output: '',
@@ -68,7 +68,7 @@ export default class QuickSim extends Component<Props> {
     } else {
       if (selected && selected.key) {
         // log.info(selected.key);
-        this.runSim(selected);
+        // this.runSim(selected);
       }
     }
   };
@@ -148,6 +148,28 @@ export default class QuickSim extends Component<Props> {
       return (
         <section id="quick-sim" className="container" data-tid="container">
           <h2 className="padding-left-20">QuickSim</h2>
+          <div className="input-group">
+            <input
+              value={this.state.characterName}
+              onChange={e => this.updateCharacterName(e)}
+              placeholder="Character Name"
+              className="form-control dark-input"
+            />
+            <input
+              value={this.state.serverName}
+              onChange={e => this.updateServerName(e)}
+              placeholder="Server Name"
+              className="form-control dark-input"
+            />
+            <select
+              value={this.state.regionISO}
+              onChange={e => this.updateRegion(e)}
+              className="form-control dark-input"
+            >
+              <option value="EU">EU</option>
+              <option value="US">US</option>
+            </select>
+          </div>
           <button
             onClick={e => {
               this.initSim();
@@ -157,29 +179,6 @@ export default class QuickSim extends Component<Props> {
           >
             Run Sim
           </button>
-          <input
-            value={this.state.characterName}
-            onChange={e => this.updateCharacterName(e)}
-            placeholder="Character Name"
-            className="form-control"
-          />
-          <input
-            value={this.state.serverName}
-            onChange={e => this.updateServerName(e)}
-            placeholder="Server Name"
-            className="form-control"
-          />
-          <select
-            value={this.state.regionISO}
-            onChange={e => this.updateRegion(e)}
-            className="custom-select"
-          >
-            <option id="region-placeholder" defaultValue disabled>
-              - Region -
-            </option>
-            <option value="EU">EU</option>
-            <option value="US">US</option>
-          </select>
           <ImportTable
             deleteProfile={deleteProfile}
             selectProfile={selectProfile}

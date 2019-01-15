@@ -13,6 +13,10 @@ export type fileStateType = {
   +files: Array
 };
 
+export type gearStateType = {
+  equippableGear: Array
+};
+
 export type Action = {
   +type: String
 };

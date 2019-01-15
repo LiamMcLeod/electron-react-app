@@ -21,6 +21,7 @@ export default class Home extends Component<Props> {
       >
         {/** ROW ONE  */}
         <div className="row">
+          {/** Import */}
           <div className="col-6">
             <div className={styles.itemBounds} data-tid="container">
               <Link to={routes.IMPORT} className="item-link" href="#">
@@ -36,6 +37,7 @@ export default class Home extends Component<Props> {
               </Link>
             </div>
           </div>
+          {/** Quick Sim */}
           <div className="col-6">
             <div className={styles.itemBounds} data-tid="container">
               <Link to={routes.QUICKSIM} className="item-link" href="#">
@@ -54,6 +56,24 @@ export default class Home extends Component<Props> {
             </div>
           </div>
           {/** OTHER */}
+          <div className="col-6">
+            <div className={styles.itemBounds} data-tid="container">
+              <Link to={routes.COMPARE} className="item-link" href="#">
+                <div className="home-item">
+                  <div className="item-image">
+                    <Boot />
+                  </div>
+                  <div className="item-text">
+                    <h2 className="heading">Gear Compare</h2>
+                    <p className="description">
+                      Compare different sets of gear
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+          {/** Results */}
           <div className="col-6">
             <div className={styles.itemBounds} data-tid="container">
               <Link to={routes.RESULTS} className="item-link" href="#">

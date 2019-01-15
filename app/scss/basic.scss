@@ -45,6 +45,12 @@
   display: block;
 }
 
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 *.unselectable {
   -webkit-user-select: none;
   user-select: none;

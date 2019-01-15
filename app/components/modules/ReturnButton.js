@@ -5,7 +5,7 @@ import routes from '../../constants/routes';
 
 type Props = {};
 
-export default class Import extends Component<Props> {
+export default class ReturnButton extends Component<Props> {
   props: Props;
 
   render() {

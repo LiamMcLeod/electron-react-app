@@ -7,6 +7,7 @@ import Footer from './containers/templates/Footer';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
 import QuickSimPage from './containers/QuickSimPage';
+import GearComparePage from './containers/GearComparePage';
 import ImportPage from './containers/ImportPage';
 import ResultsPage from './containers/ResultsPage';
 
@@ -38,6 +39,7 @@ export default class Routes extends React.Component<Props> {
               {/* MISC COMPONENTS */}
               <Route path={routes.IMPORT} component={ImportPage} />
               <Route path={routes.QUICKSIM} component={QuickSimPage} />
+              <Route path={routes.COMPARE} component={GearComparePage} />
               <Route path={routes.RESULTS} component={ResultsPage} />
             </Switch>
           </App>

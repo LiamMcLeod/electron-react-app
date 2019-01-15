@@ -1,6 +1,7 @@
 {
   "HOME": "/",
   "QUICKSIM": "/sim/quick",
+  "COMPARE": "/sim/compare",
   "RESULTS": "/sim/results",
   "IMPORT": "/profile/import"
 }
