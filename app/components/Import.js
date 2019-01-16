@@ -95,8 +95,7 @@ export default class Import extends Component<Props> {
       </section>
     );
   }
-
   componentWillUnmount() {
-    log.info('Component Will Unmount.');
+    this.setState = () => {};
   }
 }

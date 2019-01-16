@@ -127,5 +127,7 @@ export default class ImportTable extends Component<Props> {
     );
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.setState = () => {};
+  }
 }

@@ -54,7 +54,6 @@ export default class Result extends Component<Props> {
   componentDidMount() {
     const { getDirAsync } = this.props;
     getDirAsync();
-    //TODO THIS IS A QUICK AND DIRTY TEMPORARY FIX. LATER I WILL ADD A RESULTS PAGE WITH ALL CATALOGUED RESULTS
     // getId();
     // if (!this.state.id) {
     //   var sims = [];
@@ -121,5 +120,8 @@ export default class Result extends Component<Props> {
         />
       </section>
     );
+  }
+  componentWillUnmount() {
+    this.setState = () => {};
   }
 }

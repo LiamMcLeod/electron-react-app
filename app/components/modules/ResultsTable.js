@@ -90,5 +90,7 @@ export default class ResultsTable extends Component<Props> {
     );
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.setState = () => {};
+  }
 }

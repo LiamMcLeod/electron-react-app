@@ -94,4 +94,7 @@ export default class Home extends Component<Props> {
       </section>
     );
   }
+  componentWillUnmount() {
+    this.setState = () => {};
+  }
 }

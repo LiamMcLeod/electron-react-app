@@ -129,7 +129,8 @@ export default class ImportRow extends Component<Props> {
       return null;
     }
   }
-  componentDidMount() {}
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.setState = () => {};
+  }
 }

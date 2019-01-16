@@ -221,4 +221,8 @@ export default class CurrentResult extends Component<Props> {
       </section>
     );
   }
+
+  componentWillUnmount() {
+    this.setState = () => {};
+  }
 }

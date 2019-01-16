@@ -45,7 +45,9 @@ export default class ResultsRow extends Component<Props> {
   };
 
   deleteBoxChange = e => {
-    this.setState({ deleteConfirm: e.target.value });
+    this.setState({
+      deleteConfirm: e.target.value
+    });
   };
 
   render() {
@@ -94,7 +96,7 @@ export default class ResultsRow extends Component<Props> {
       return null;
     }
   }
-  componentDidMount() {}
-
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.setState = () => {};
+  }
 }

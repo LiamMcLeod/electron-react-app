@@ -1,0 +1,134 @@
+[
+  {
+    "id": 25,
+    "name": "Worn Shortsword",
+    "names": {
+      "pt_BR": "Espadim Usado",
+      "es_ES": "Espada corta desgastada",
+      "ru_RU": "Иссеченный короткий меч",
+      "fr_FR": "Epée courte usée",
+      "it_IT": "Spada Corta Consunta",
+      "de_DE": "Abgenutztes Kurzschwert",
+      "en_US": "Worn Shortsword"
+    },
+    "icon": "inv_sword_04",
+    "quality": 1,
+    "itemClass": 2,
+    "itemSubClass": 7,
+    "inventoryType": 21,
+    "itemLevel": 1,
+    "hasSockets": false,
+    "chanceBonusList": [],
+    "bonusLists": []
+  },
+  {
+    "id": 35,
+    "name": "Bent Staff",
+    "names": {
+      "es_ES": "Bastón doblado",
+      "pt_BR": "Cajado Curvado",
+      "fr_FR": "Bâton tordu",
+      "de_DE": "Gebogener Stab",
+      "ru_RU": "Гнутый посох",
+      "it_IT": "Bastone Piegato",
+      "en_US": "Bent Staff"
+    },
+    "icon": "inv_staff_08",
+    "quality": 1,
+    "itemClass": 2,
+    "itemSubClass": 10,
+    "inventoryType": 17,
+    "itemLevel": 1,
+    "hasSockets": false,
+    "chanceBonusList": [],
+    "bonusLists": []
+  },
+  {
+    "id": 36,
+    "name": "Worn Mace",
+    "names": {
+      "pt_BR": "Maça Gasta",
+      "es_ES": "Maza desgastada",
+      "fr_FR": "Masse détériorée",
+      "de_DE": "Abgenutzter Streitkolben",
+      "it_IT": "Mazza Consunta",
+      "ru_RU": "Иссеченная палица",
+      "en_US": "Worn Mace"
+    },
+    "icon": "inv_mace_03",
+    "quality": 1,
+    "itemClass": 2,
+    "itemSubClass": 4,
+    "inventoryType": 21,
+    "itemLevel": 1,
+    "hasSockets": false,
+    "chanceBonusList": [],
+    "bonusLists": []
+  },
+  {
+    "id": 37,
+    "name": "Worn Axe",
+    "names": {
+      "es_ES": "Hacha desgastada",
+      "it_IT": "Ascia Consunta",
+      "pt_BR": "Machado Usado",
+      "fr_FR": "Hache usée",
+      "de_DE": "Abgenutzte Axt",
+      "ru_RU": "Старый топор",
+      "en_US": "Worn Axe"
+    },
+    "icon": "inv_axe_11",
+    "quality": 1,
+    "itemClass": 2,
+    "itemSubClass": 0,
+    "inventoryType": 21,
+    "itemLevel": 1,
+    "hasSockets": false,
+    "chanceBonusList": [],
+    "bonusLists": []
+  },
+  {
+    "id": 38,
+    "name": "Recruit's Shirt",
+    "names": {
+      "es_ES": "Camisa de recluta",
+      "fr_FR": "Chemise de recrue",
+      "pt_BR": "Camisa do Recruta",
+      "ru_RU": "Рубашка рекрута",
+      "de_DE": "Rekrutenhemd",
+      "it_IT": "Camicia da Recluta",
+      "en_US": "Recruit's Shirt"
+    },
+    "icon": "inv_shirt_05",
+    "quality": 2,
+    "itemClass": 4,
+    "itemSubClass": 0,
+    "inventoryType": 4,
+    "itemLevel": 1,
+    "hasSockets": false,
+    "chanceBonusList": [],
+    "bonusLists": []
+  },
+  {
+    "id": 39,
+    "name": "Recruit's Pants",
+    "names": {
+      "pt_BR": "Calças do Recruta",
+      "es_ES": "Pantalones de recluta",
+      "fr_FR": "Pantalon de recrue",
+      "ru_RU": "Штаны рекрута",
+      "de_DE": "Rekrutenhose",
+      "it_IT": "Pantaloni da Recluta",
+      "en_US": "Recruit's Pants"
+    },
+    "icon": "inv_pants_02",
+    "quality": 1,
+    "itemClass": 4,
+    "itemSubClass": 4,
+    "inventoryType": 7,
+    "itemLevel": 1,
+    "hasSockets": false,
+    "chanceBonusList": [],
+    "bonusLists": []
+  }
+]

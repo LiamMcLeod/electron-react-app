@@ -169,6 +169,7 @@ export default class GearCompare extends Component<Props> {
           >
             Run Sim
           </button>
+          <GearSelect />
         </section>
       );
     } else {
@@ -184,5 +185,8 @@ export default class GearCompare extends Component<Props> {
         </section>
       );
     }
+  }
+  componentWillUnmount() {
+    this.setState = () => {};
   }
 }
