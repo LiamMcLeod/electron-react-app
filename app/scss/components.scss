@@ -108,6 +108,26 @@ main #current-result .spacer {
   width: 10%;
 }
 
+//* Gear Compare
+
+main #gear-select #search-autocomplete-results {
+  height: 0;
+  width: 250px;
+  background: $color-input;
+  overflow-y: scroll;
+}
+main .search-container {
+  width: 250px;
+}
+main #gear-select input {
+  width: 250px;
+}
+
+main #gear-select .displayed-item-row {
+}
+main #gear-select .displayed-item {
+}
+
 //* Other
 main input.dark-input,
 main select.dark-input {

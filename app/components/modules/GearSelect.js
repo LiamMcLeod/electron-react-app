@@ -14,7 +14,6 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import { getGearAsync } from '../../actions/gear';
 
 import generateId from '../../modules/GenerateId';
-import objectFilter from '../../modules/ObjectFilter';
 
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
@@ -31,20 +30,24 @@ import log from 'electron-log';
 export default class GearSelect extends Component<Props> {
   constructor(Props) {
     super(Props);
-    this.state = { gear: [], searchQuery: '', displayedItems: [] };
+    this.state = { gear: [], searchQuery: '', displayedItems: [], toSim: [] };
   }
   props: Props;
 
   searchChange = async e => {
     var items = [];
-    this.setState({ searchQuery: e.target.value, displayedItems: [] });
+    this.setState({
+      searchQuery: e.target.value,
+      displayedItems: []
+    });
     if (e.target.value.length >= 3) {
       items = await this.searchDebounce();
       this.setState({ displayedItems: items });
     }
   };
 
-  searchDebounce = () => AwesomeDebouncePromise(this.searchJson(), 1500);
+  //  https: //github.com/slorber/awesome-debounce-promise
+  searchDebounce = () => AwesomeDebouncePromise(this.searchJson(), 3500);
 
   searchJson = () => {
     //TODO alternative solution. This is pretty janky and slightly laggy due to 80,000 rows but it works.
@@ -58,6 +61,7 @@ export default class GearSelect extends Component<Props> {
         var displayedItems = this.state.displayedItems;
 
         if (this.state.searchQuery) {
+          var exists = {};
           var filtered = data.filter(obj => {
             // log.info(obj.name);
             var name = obj.name;
@@ -65,13 +69,22 @@ export default class GearSelect extends Component<Props> {
               name &&
               name.toLowerCase().includes(this.state.searchQuery.toLowerCase())
             ) {
-              // log.info('Match: ' + name);
-              return obj;
+              var keys = Object.keys(exists);
+              if (keys.length > 0 && exists.hasOwnProperty(obj.name)) {
+              } else {
+                exists[obj.name] = true;
+                return obj;
+              }
             }
           });
-          log.info(filtered);
 
-          this.setState({ displayedItems: filtered });
+          // log.info(filtered);
+          filtered = filtered.sort((objA, objB) => {
+            return objB.itemLevel - objA.itemLevel;
+          });
+          this.setState({
+            displayedItems: filtered
+          });
         }
       });
   };
@@ -83,21 +96,54 @@ export default class GearSelect extends Component<Props> {
   componentDidMount() {}
 
   render() {
+    if (this.state.searchQuery && this.state.displayedItems.length) {
+      var rows = this.state.displayedItems.map((row, i) => {
+        return (
+          <div className="diplayed-item-row" key={generateId()}>
+            <a href="#"> {row.name} </a>
+          </div>
+        );
+      });
+    }
+
     return (
-      <div id="gear-select">
+      <section id="gear-select">
         <h2>Select Gear</h2>
-        <input
-          type="search"
-          id="search-autocomplete"
-          className="dark-input form-control form-autocomplete"
-          value={this.state.searchQuery}
-          onChange={e => {
-            this.searchChange(e);
-          }}
-        />
-        <div>Results</div>
-        <button className="btn background-colour-accent">Add</button>
-      </div>
+        <div className="form-row">
+          <div className="col-auto">
+            <div className="search-container">
+              <input
+                type="search"
+                id="search-autocomplete"
+                className="dark-input form-control form-autocomplete"
+                value={this.state.searchQuery}
+                onChange={e => {
+                  this.searchChange(e);
+                }}
+              />
+            </div>
+            <div
+              id="search-autocomplete-results"
+              style={
+                this.state.searchQuery
+                  ? {
+                      height: '150px',
+                      // width: '300px',
+                      padding: '10px',
+                      border: '1px solid #000'
+                    }
+                  : { border: '0', padding: '0' }
+              }
+            >
+              {/*  */}
+              {this.state.displayedItems.length ? rows : null}
+            </div>
+          </div>
+          <div className="col-auto">
+            <button className="btn background-colour-accent">Add</button>
+          </div>
+        </div>
+      </section>
     );
   }
 
