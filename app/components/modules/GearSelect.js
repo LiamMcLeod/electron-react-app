@@ -93,14 +93,60 @@ export default class GearSelect extends Component<Props> {
     return null;
   }
 
+  selectPiece = e => {
+    e.preventDefault();
+    //
+  };
+
   componentDidMount() {}
 
   render() {
     if (this.state.searchQuery && this.state.displayedItems.length) {
       var rows = this.state.displayedItems.map((row, i) => {
+        var itemQuality = '';
+        switch (row.quality) {
+          case 0:
+            itemQuality = 'poor';
+            break;
+          case 1:
+            itemQuality = 'common';
+            break;
+          case 2:
+            itemQuality = 'uncommon';
+            break;
+          case 3:
+            itemQuality = 'rare';
+            break;
+          case 4:
+            itemQuality = 'epic';
+            break;
+          case 5:
+            itemQuality = 'legendary';
+            break;
+          //0=poor 9d9d9d
+          //1=common ffffff
+          //2=uncommon:#1eff00
+          //3=rare #0070dd
+          //4=epic a335ee
+
+          // </li><li> 5 - <span style="color:#ff8000">Legendary</span>
+          // </li><li> 6 - <span style="color:#e6cc80">Artifact</span>
+          // </li><li> 7 - <span style="color:#e6cc80">Heirloom</span>
+
+          //todo see others for loom, legendary, artifact
+        }
         return (
           <div className="diplayed-item-row" key={generateId()}>
-            <a href="#"> {row.name} </a>
+            <a
+              onClick={e => {
+                this.selectPiece();
+              }}
+              href="#"
+              className={'displayed-item ' + itemQuality + '-item'}
+            >
+              {' '}
+              {row.name}{' '}
+            </a>
           </div>
         );
       });
@@ -115,7 +161,7 @@ export default class GearSelect extends Component<Props> {
               <input
                 type="search"
                 id="search-autocomplete"
-                className="dark-input form-control form-autocomplete"
+                className="darker-input form-control form-autocomplete"
                 value={this.state.searchQuery}
                 onChange={e => {
                   this.searchChange(e);
@@ -127,16 +173,20 @@ export default class GearSelect extends Component<Props> {
               style={
                 this.state.searchQuery
                   ? {
-                      height: '150px',
-                      // width: '300px',
+                      height: '150px', // width: '300px',
                       padding: '10px',
                       border: '1px solid #000'
                     }
                   : { border: '0', padding: '0' }
               }
             >
-              {/*  */}
-              {this.state.displayedItems.length ? rows : null}
+              {this.state.searchQuery.length > 0 ? (
+                this.state.displayedItems.length ? (
+                  rows
+                ) : (
+                  <div className="loader" />
+                )
+              ) : null}
             </div>
           </div>
           <div className="col-auto">

@@ -130,5 +130,65 @@
     "hasSockets": false,
     "chanceBonusList": [],
     "bonusLists": []
+  },
+  {
+    "id": 81698,
+    "name": "Harlan's Shoulders",
+    "names": {
+      "pt_BR": "Ombros de Harlan",
+      "es_ES": "Sobrehombros de Harlan",
+      "fr_FR": "Epaulières d'Harlan",
+      "ru_RU": "Наплечники Гарлана",
+      "de_DE": "Harlans Schultern",
+      "it_IT": "Spallacci di Harlan",
+      "en_US": "Harlan's Shoulders"
+    },
+    "icon": "inv_shoulder_mail_dungeonmail_c_06",
+    "quality": 3,
+    "itemClass": 4,
+    "itemSubClass": 3,
+    "inventoryType": 3,
+    "itemLevel": 116,
+    "hasSockets": true,
+    "socketInfo": {
+      "sockets": [
+        {
+          "type": "PRISMATIC"
+        }
+      ]
+    },
+    "chanceBonusList": [],
+    "bonusLists": []
+  },
+  {
+    "id": 155881,
+    "name": "Harlan's Loaded Dice",
+    "names": {
+      "pt_BR": "Dados Viciados de Arlão",
+      "fr_FR": "Dé pipé d’Harlan",
+      "es_ES": "Dados trucados de Harlan",
+      "ru_RU": "Шулерские кости Харлана",
+      "de_DE": "Harlans gezinkter Würfel",
+      "it_IT": "Dadi Truccati di Harlan",
+      "en_US": "Harlan's Loaded Dice"
+    },
+    "icon": "inv_misc_dice_02",
+    "quality": 3,
+    "itemClass": 4,
+    "itemSubClass": 0,
+    "inventoryType": 12,
+    "itemLevel": 300,
+    "hasSockets": false,
+    "uniqueEquipped": true,
+    "chanceBonusList": [
+      4802,
+      40,
+      41,
+      42
+    ],
+    "bonusLists": [
+      4776
+    ]
+  },
   }
 ]

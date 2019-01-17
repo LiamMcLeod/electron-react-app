@@ -110,10 +110,15 @@ main #current-result .spacer {
 
 //* Gear Compare
 
+//* Gear Select
+
 main #gear-select #search-autocomplete-results {
   height: 0;
   width: 250px;
-  background: $color-input;
+  background: $color-dark;
+  // todo fix text-wrap
+  white-space: nowrap;
+  overflow: hidden;
   overflow-y: scroll;
 }
 main .search-container {
@@ -124,8 +129,48 @@ main #gear-select input {
 }
 
 main #gear-select .displayed-item-row {
+  // todo This selector doesn't work
+  padding: 5px 10px;
 }
 main #gear-select .displayed-item {
+}
+
+a.poor-item {
+  color: #9d9d9d;
+}
+
+a.common-item {
+  color: #ffffff;
+}
+
+a.uncommon-item {
+  color: #1eff00;
+}
+
+a.rare-item {
+  color: #0070dd;
+}
+
+a.epic-item {
+  color: #a335ee;
+}
+
+a.legendary-item {
+  color: #ff8000;
+}
+
+a.artifact-item {
+  color: #e6cc80;
+}
+
+// </li><li> 5 - <span style="color:#ff8000">Legendary</span>
+// </li><li> 6 - <span style="color:#e6cc80">Artifact</span>
+// </li><li> 7 - <span style="color:#e6cc80">Heirloom</span>
+
+//todo FINISh
+
+a[class$='-item']:hover {
+  color: #fff;
 }
 
 //* Other
@@ -136,6 +181,7 @@ main select.dark-input {
   color: #000;
   font-size: 12px;
 }
+
 main input.dark-input:focus,
 main select.dark-input:focus,
 main textarea.dark-textarea:focus {
@@ -160,6 +206,18 @@ main textarea.dark-textarea {
 main textarea.dark-textarea :focus {
   background: $color-input;
   color: #000;
+}
+
+main input.darker-input {
+  border: 1px solid black;
+  color: #fff;
+  background: $color-dark;
+  font-size: 12px;
+}
+
+main input.darker-input:focus {
+  color: #fff;
+  background: $color-dark;
 }
 
 main .table-dark {
