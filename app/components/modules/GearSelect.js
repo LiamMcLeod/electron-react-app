@@ -123,23 +123,13 @@ export default class GearSelect extends Component<Props> {
           case 5:
             itemQuality = 'legendary';
             break;
-          //0=poor 9d9d9d
-          //1=common ffffff
-          //2=uncommon:#1eff00
-          //3=rare #0070dd
-          //4=epic a335ee
-
-          // </li><li> 5 - <span style="color:#ff8000">Legendary</span>
-          // </li><li> 6 - <span style="color:#e6cc80">Artifact</span>
-          // </li><li> 7 - <span style="color:#e6cc80">Heirloom</span>
-
           //todo see others for loom, legendary, artifact
         }
         return (
           <div className="diplayed-item-row" key={generateId()}>
             <a
               onClick={e => {
-                this.selectPiece();
+                this.selectPiece(e);
               }}
               href="#"
               className={'displayed-item ' + itemQuality + '-item'}

@@ -26,7 +26,8 @@ export default class GearCompare extends Component<Props> {
       regionISO: 'EU',
       running: false,
       output: '',
-      toResults: false
+      toResults: false,
+      sets: 0
     };
   }
   props: Props;
@@ -128,8 +129,19 @@ export default class GearCompare extends Component<Props> {
   updateOutput = e => {
     this.setState({ output: e.target.value });
   };
+  addGearSet = e => {
+    this.setState({ sets: this.state.sets + 1 });
+  };
 
   render() {
+    var gearSelect = [];
+    for (var i = 0; i < this.state.sets; i++) {
+      gearSelect.push(
+        <div key={generateId()}>
+          <GearSelect />
+        </div>
+      );
+    }
     var options = this.state.gear;
     if (this.state.toResults === true) {
       return <Redirect to="/sim/results" />;
@@ -169,7 +181,17 @@ export default class GearCompare extends Component<Props> {
           >
             Run Sim
           </button>
-          <GearSelect />
+          <button
+            onClick={e => {
+              this.addGearSet(e);
+            }}
+            type="button"
+            className="btn btn-lg background-colour-accent"
+          >
+            Add Set
+          </button>
+          {gearSelect}
+          {/* <GearSelect /> */}
         </section>
       );
     } else {
