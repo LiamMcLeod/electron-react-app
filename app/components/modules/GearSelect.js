@@ -125,8 +125,11 @@ export default class GearSelect extends Component<Props> {
             break;
           //todo see others for loom, legendary, artifact
         }
+        // todo display icons
+        //** Icon pack from https://barrens.chat/viewtopic.php?f=5&t=63&p=1726#p1726 */
+        // "https://wow.zamimg.com/images/wow/icons/large/inv_misc_dice_02.jpg");
         return (
-          <div className="diplayed-item-row" key={generateId()}>
+          <div className="displayed-item-row" key={generateId()}>
             <a
               onClick={e => {
                 this.selectPiece(e);
@@ -134,7 +137,14 @@ export default class GearSelect extends Component<Props> {
               href="#"
               className={'displayed-item ' + itemQuality + '-item'}
             >
-              {' '}
+              <img
+                src={`https://wow.zamimg.com/images/wow/icons/large/${
+                  row.icon
+                }.jpg`}
+                height="24"
+                width="24"
+                // TODO MOVE TO CSS
+              />{' '}
               {row.name}{' '}
             </a>
           </div>
@@ -164,7 +174,7 @@ export default class GearSelect extends Component<Props> {
                 this.state.searchQuery
                   ? {
                       height: '150px', // width: '300px',
-                      padding: '10px',
+                      padding: '10px 12px',
                       border: '1px solid #000'
                     }
                   : { border: '0', padding: '0' }
