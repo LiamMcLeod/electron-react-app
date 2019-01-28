@@ -30,7 +30,15 @@ import log from 'electron-log';
 export default class GearSelect extends Component<Props> {
   constructor(Props) {
     super(Props);
-    this.state = { gear: [], searchQuery: '', displayedItems: [], toSim: [] };
+    this.state = {
+      gear: [],
+      searchQuery: '',
+      displayResults: false,
+      displayedItems: [],
+      setItem: {},
+      selectedItems: [],
+      toSim: []
+    };
   }
   props: Props;
 
@@ -46,10 +54,22 @@ export default class GearSelect extends Component<Props> {
     }
   };
 
-  //  https: //github.com/slorber/awesome-debounce-promise
-  searchDebounce = () => AwesomeDebouncePromise(this.searchJson(), 3500);
+  setSearch = value => {
+    this.setState({ searchQuery: value });
+    this.searchDebounce(false, value);
+    var item = this.state.displayedItems.filter(obj => {
+      if (obj.name == value) {
+        return obj;
+      }
+    });
+    this.setState({ setItem: item[0] });
+  };
 
-  searchJson = () => {
+  //  https: //github.com/slorber/awesome-debounce-promise
+  searchDebounce = (bool, value) =>
+    AwesomeDebouncePromise(this.searchJson(bool, value), 500);
+
+  searchJson = (bool = true, searchQuery) => {
     //TODO alternative solution. This is pretty janky and slightly laggy due to 80,000 rows but it works.
     fetch('data/equippable-items.json')
       // fetch('data/testdata.json')
@@ -60,14 +80,19 @@ export default class GearSelect extends Component<Props> {
       .then(data => {
         var displayedItems = this.state.displayedItems;
 
-        if (this.state.searchQuery) {
+        if (searchQuery || this.state.searchQuery) {
           var exists = {};
           var filtered = data.filter(obj => {
             // log.info(obj.name);
             var name = obj.name;
             if (
               name &&
-              name.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+              name
+                .toLowerCase()
+                .includes(
+                  this.state.searchQuery.toLowerCase() ||
+                    searchQuery.toLowerCase()
+                )
             ) {
               var keys = Object.keys(exists);
               if (keys.length > 0 && exists.hasOwnProperty(obj.name)) {
@@ -83,20 +108,33 @@ export default class GearSelect extends Component<Props> {
             return objB.itemLevel - objA.itemLevel;
           });
           this.setState({
-            displayedItems: filtered
+            displayedItems: filtered,
+            displayResults: bool
           });
         }
       });
   };
 
+  selectPiece = e => {
+    e.preventDefault();
+    this.setSearch(e.target.innerText);
+  };
+
+  addPiece = async e => {
+    e.preventDefault();
+    // todo fix
+    var items = this.state.selectedItems;
+    // log.info(items);
+    var piece = this.state.setItem;
+    // log.info(piece);
+    items.push(piece);
+    // log.info(items);
+    this.setState({ selectedItems: items });
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     return null;
   }
-
-  selectPiece = e => {
-    e.preventDefault();
-    //
-  };
 
   componentDidMount() {}
 
@@ -125,7 +163,7 @@ export default class GearSelect extends Component<Props> {
             break;
           //todo see others for loom, legendary, artifact
         }
-        // todo display icons
+
         //** Icon pack from https://barrens.chat/viewtopic.php?f=5&t=63&p=1726#p1726 */
         // "https://wow.zamimg.com/images/wow/icons/large/inv_misc_dice_02.jpg");
         return (
@@ -135,23 +173,37 @@ export default class GearSelect extends Component<Props> {
                 this.selectPiece(e);
               }}
               href="#"
+              id={row.id}
               className={'displayed-item ' + itemQuality + '-item'}
             >
               <img
+                className="item-icon"
                 src={`https://wow.zamimg.com/images/wow/icons/large/${
                   row.icon
-                }.jpg`}
+                }.jpg`} // TODO MOVE TO CSS
                 height="24"
                 width="24"
-                // TODO MOVE TO CSS
-              />{' '}
-              {row.name}{' '}
+                style={{ margin: '0 5px 0 0' }}
+              />
+              {/* // TODO ADD SOME PADDING */}
+              {row.name}
             </a>
           </div>
         );
       });
     }
+    //!END OF IF
 
+    if (this.state.selectedItems) {
+      var selected = this.state.selectedItems.map((row, i) => {
+        return (
+          <div className="" key={generateId()}>
+            {/* todo replace with WoWHead Link */}
+            <a href="#">{row.name}</a>
+          </div>
+        );
+      });
+    }
     return (
       <section id="gear-select">
         <h2>Select Gear</h2>
@@ -171,13 +223,13 @@ export default class GearSelect extends Component<Props> {
             <div
               id="search-autocomplete-results"
               style={
-                this.state.searchQuery
+                this.state.searchQuery && this.state.displayResults
                   ? {
-                      height: '150px', // width: '300px',
+                      height: '150px',
                       padding: '10px 12px',
                       border: '1px solid #000'
                     }
-                  : { border: '0', padding: '0' }
+                  : { border: '0', padding: '0' } // width: '300px',
               }
             >
               {this.state.searchQuery.length > 0 ? (
@@ -190,8 +242,26 @@ export default class GearSelect extends Component<Props> {
             </div>
           </div>
           <div className="col-auto">
-            <button className="btn background-colour-accent">Add</button>
+            <button
+              className="btn background-colour-accent"
+              onClick={e => {
+                this.addPiece(e);
+              }}
+            >
+              Add
+            </button>
           </div>
+        </div>
+        <div className="col-auto">
+          <select className="form-control dark-input">
+            {/* todo finish styling  and select options*/}
+            <option />
+            <option />
+          </select>
+        </div>
+        <div>
+          {this.state.selectedItems ? selected : null}
+          {/*  */}
         </div>
       </section>
     );

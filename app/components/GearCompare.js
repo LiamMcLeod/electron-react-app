@@ -147,6 +147,7 @@ export default class GearCompare extends Component<Props> {
       return <Redirect to="/sim/results" />;
     }
     if (!this.state.running) {
+      // TODO MOVE GET FROM ARMORY INTO OWN MODULE
       return (
         <section id="gear-compare" className="container" data-tid="container">
           <h2 className="padding-left-20">Gear Compare</h2>
