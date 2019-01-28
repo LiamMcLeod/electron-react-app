@@ -180,15 +180,7 @@
     "itemLevel": 300,
     "hasSockets": false,
     "uniqueEquipped": true,
-    "chanceBonusList": [
-      4802,
-      40,
-      41,
-      42
-    ],
-    "bonusLists": [
-      4776
-    ]
-  },
+    "chanceBonusList": [4802, 40, 41, 42],
+    "bonusLists": [4776]
   }
 ]

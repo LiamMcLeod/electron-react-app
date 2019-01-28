@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "slot": "Head"
+  },
+  {
+    "id": 2,
+    "slot": "Neck"
+  },
+  {
+    "id": 3,
+    "slot": "Shoulders"
+  },
+  {
+    "id": 15,
+    "slot": "Back"
+  },
+  {
+    "id": 5,
+    "slot": "Chest"
+  },
+  {
+    "id": 9,
+    "slot": "Wrist"
+  },
+  {
+    "id": 10,
+    "slot": "Gloves"
+  },
+  {
+    "id": 6,
+    "slot": "Belt"
+  },
+  {
+    "id": 7,
+    "slot": "Legs"
+  },
+  {
+    "id": 8,
+    "slot": "Feet"
+  },
+  {
+    "id": 11,
+    "slot": "Ring 1 (Top)"
+  },
+  {
+    "id": 12,
+    "slot": "Ring 2 (Bottom)"
+  },
+  {
+    "id": 13,
+    "slot": "Trinket 1 (Top)"
+  },
+  {
+    "id": 14,
+    "slot": "Trinket 2 (Bottom)"
+  },
+  {
+    "id": 16,
+    "slot": "Main-Hand (Left)"
+  },
+  {
+    "id": 17,
+    "slot": "Off-Hand (Right)"
+  }
+]

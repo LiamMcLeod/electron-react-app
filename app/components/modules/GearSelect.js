@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes';
 
+const remote = require('electron').remote;
+const shell = require('electron').shell;
+
 import JSONStream from 'JSONStream';
 import fs from 'fs';
 import { List, AutoSizer } from 'react-virtualized';
@@ -37,7 +40,8 @@ export default class GearSelect extends Component<Props> {
       displayedItems: [],
       setItem: {},
       selectedItems: [],
-      toSim: []
+      toSim: [],
+      slots: []
     };
   }
   props: Props;
@@ -122,21 +126,36 @@ export default class GearSelect extends Component<Props> {
 
   addPiece = async e => {
     e.preventDefault();
-    // todo fix
+    // todo account for multiple sets
     var items = this.state.selectedItems;
-    // log.info(items);
     var piece = this.state.setItem;
-    // log.info(piece);
     items.push(piece);
-    // log.info(items);
     this.setState({ selectedItems: items });
+  };
+
+  openLink = (e, id) => {
+    //
+    e.preventDefault();
+    log.info(id);
+    shell.openExternal('http://wowhead.com/item=' + id);
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return null;
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    //todo fetch item slots
+    fetch('data/equipment-slots.json')
+      .then(res => {
+        // log.info(res);
+        return res.json();
+      })
+      .then(data => {
+        log.info(data);
+        this.setState({ slots: data });
+      });
+  }
 
   render() {
     if (this.state.searchQuery && this.state.displayedItems.length) {
@@ -165,6 +184,7 @@ export default class GearSelect extends Component<Props> {
         }
 
         //** Icon pack from https://barrens.chat/viewtopic.php?f=5&t=63&p=1726#p1726 */
+        // TODO FIND icon pack with original names preserved i.e link below
         // "https://wow.zamimg.com/images/wow/icons/large/inv_misc_dice_02.jpg");
         return (
           <div className="displayed-item-row" key={generateId()}>
@@ -199,8 +219,27 @@ export default class GearSelect extends Component<Props> {
         return (
           <div className="" key={generateId()}>
             {/* todo replace with WoWHead Link */}
-            <a href="#">{row.name}</a>
+            <a
+              href="#"
+              onClick={e => {
+                this.openLink(e, row.id);
+              }}
+            >
+              {row.name}
+            </a>
           </div>
+        );
+      });
+    }
+    if (this.state.slots) {
+      // TODO if inventoryType for selected Item
+      // TODO If 11 then 12 also
+      // TODO if 13 then 14 also
+      var slots = this.state.slots.map((row, i) => {
+        return (
+          <option key={row.id} value={row.id}>
+            {row.slot}
+          </option>
         );
       });
     }
@@ -251,15 +290,15 @@ export default class GearSelect extends Component<Props> {
               Add
             </button>
           </div>
-        </div>
-        <div className="col-auto">
-          <select className="form-control dark-input">
-            {/* todo finish styling  and select options*/}
-            <option />
-            <option />
-          </select>
+          <div className="col-auto">
+            <select className="form-control dark-input">
+              {/* todo finish styling  and select options*/}
+              {this.state.slots ? slots : null}
+            </select>
+          </div>
         </div>
         <div>
+          {/* TODO STYLE */}
           {this.state.selectedItems ? selected : null}
           {/*  */}
         </div>
